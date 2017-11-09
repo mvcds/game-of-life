@@ -1,8 +1,15 @@
 const React = require('react')
+const bem = require('bem-classname')
+
+const baseClass = bem.bind(null, 'cell')
+
+require('./cell.styl')
 
 function Cell({ isAlive }) {
   return (
-    <button>{isAlive ? 'A' : 'D'}</button>
+    <button className={baseClass({ 'is-alive': isAlive })}>
+      {isAlive ? 'A' : 'D'}
+    </button>
   )
 }
 
