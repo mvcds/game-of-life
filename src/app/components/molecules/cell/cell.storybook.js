@@ -7,7 +7,7 @@ const Cell = require('./index')
 
 const talk = action('I was clicked')
 
-storiesOf('Cell', module)
+storiesOf('Molecules / Cell', module)
   .addDecorator(withKnobs)
   .add('Default', () => {
     const isAlive = boolean('isAlive?', false);
