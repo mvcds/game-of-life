@@ -1,9 +1,9 @@
 const React = require('react')
 const bem = require('bem-classname')
 
-const baseClass = bem.bind(null, 'cell')
-
 require('./cell.styl')
+
+const baseClass = bem.bind(null, 'cell')
 
 function Cell({ isAlive, clickHandler }) {
   return (
