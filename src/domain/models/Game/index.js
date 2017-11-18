@@ -1,0 +1,7 @@
+const GAME_STATUSES = {
+  IDLE: 'IDLE',
+  RUNNING: 'RUNNING',
+  PAUSED: 'PAUSED'
+}
+
+export { GAME_STATUSES }
