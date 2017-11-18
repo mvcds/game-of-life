@@ -6,7 +6,8 @@ rules:
     "devDependencies": [
       "**/*.test.js",
       "**/*.factory.js",
-      "**/*.storybook.js"
+      "**/*.storybook.js",
+      "**/*.steps.js"
     ]
   }]
   react/jsx-filename-extension: ["error", {

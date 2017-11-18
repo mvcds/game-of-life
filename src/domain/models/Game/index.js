@@ -4,8 +4,16 @@ const GAME_STATUSES = {
   PAUSED: 'PAUSED'
 }
 
-class Game {}
+function start() {
+  this.status = GAME_STATUSES.RUNNING
+}
 
-export default Game
+function Game(data) {
+  Object.assign(this, data, {
+    start: start.bind(this)
+  })
+}
 
-export { GAME_STATUSES }
+module.exports = Game
+
+module.exports.GAME_STATUSES = GAME_STATUSES

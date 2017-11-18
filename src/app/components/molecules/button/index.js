@@ -15,9 +15,13 @@ function Button({ children, onClick, disabled }) {
 }
 
 Button.propTypes = {
-  children: PropTypes.number.isRequired,
+  children: PropTypes.node.isRequired,
   onClick: PropTypes.func.isRequired,
-  disabled: PropTypes.bool.isRequired
+  disabled: PropTypes.bool
+}
+
+Button.defaultProps = {
+  disabled: false
 }
 
 module.exports = Button
