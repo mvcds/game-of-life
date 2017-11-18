@@ -18,16 +18,12 @@ storiesOf('Molecules / Button', module)
       </Button>
     )
   })
-  .add('Two buttons', () => {
-    return [
-      <Button onClick={talk} key="first">First</Button>,
-      <Button onClick={talk} key="second">Second</Button>
-    ]
-  })
-  .add('Three buttons', () => {
-    return [
-      <Button onClick={talk} key="first">First</Button>,
-      <Button onClick={talk} key="second">Second</Button>,
-      <Button onClick={talk} key="third">Third</Button>
-    ]
-  })
+  .add('Two buttons', () => [
+    <Button onClick={talk} key="first">First</Button>,
+    <Button onClick={talk} key="second">Second</Button>
+  ])
+  .add('Three buttons', () => [
+    <Button onClick={talk} key="first">First</Button>,
+    <Button onClick={talk} key="second">Second</Button>,
+    <Button onClick={talk} key="third">Third</Button>
+  ])

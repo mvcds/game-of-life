@@ -36,6 +36,6 @@ storiesOf('Organisms / Control', module)
     const game = GameFactory[generation || 'RandomAtStep0']()
 
     return (
-      <Control status={status} { ...methods } game={game} />
+      <Control status={status} {...methods} {...game} />
     )
   })

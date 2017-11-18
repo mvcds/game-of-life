@@ -1,7 +1,7 @@
 const { Factory } = require('rosie')
 const { random } = require('faker')
 
-const STEPS = [ 1, 2, 3, 4, 5 ]
+const STEPS = [1, 2, 3, 4, 5]
 
 const game = new Factory()
   .attr('step', 0)
@@ -9,8 +9,6 @@ const game = new Factory()
   .attr('isGameOver', false)
 
 function RandomAtStep0(injection = {}) {
-  const { steps = STEPS } = injection
-
   const data = Object.assign({}, injection, {
     step: 0
   })

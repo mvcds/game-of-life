@@ -1,5 +1,6 @@
 const React = require('react')
 const bem = require('bem-classname')
+const PropTypes = require('prop-types')
 
 const Cell = require('../../molecules/cell')
 
@@ -13,12 +14,12 @@ function render(cell, index) {
 
 function stylize(columns, rows) {
   return {
-    'grid-template-columns': `repeat(${ columns }, 24px)`,
-    'grid-template-rows': `repeat(${ rows }, 24px)`
+    'grid-template-columns': `repeat(${columns}, 24px)`,
+    'grid-template-rows': `repeat(${rows}, 24px)`
   }
 }
 
-function board({ columns, rows, cells, onToggleCell }) {
+function Board({ columns, rows, cells, onToggleCell }) {
   const style = stylize(columns, rows)
 
   return (
@@ -28,4 +29,11 @@ function board({ columns, rows, cells, onToggleCell }) {
   )
 }
 
-module.exports = board
+Board.propTypes = {
+  columns: PropTypes.number.isRequired,
+  rows: PropTypes.number.isRequired,
+  cells: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onToggleCell: PropTypes.func.isRequired
+}
+
+module.exports = Board

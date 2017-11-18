@@ -4,4 +4,8 @@ const GAME_STATUSES = {
   PAUSED: 'PAUSED'
 }
 
+class Game {}
+
+export default Game
+
 export { GAME_STATUSES }

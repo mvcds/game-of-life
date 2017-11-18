@@ -26,6 +26,6 @@ storiesOf('Organisms / Board', module)
     const board = BoardFactory.AllDead({ columns, rows })
 
     return (
-      <Board { ...board } onToggleCell={toggleCellHandler} />
+      <Board {...board} onToggleCell={toggleCellHandler} />
     )
   })

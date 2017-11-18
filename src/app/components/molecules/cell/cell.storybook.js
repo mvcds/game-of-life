@@ -10,7 +10,7 @@ const talk = action('I was clicked')
 storiesOf('Molecules / Cell', module)
   .addDecorator(withKnobs)
   .add('Default', () => {
-    const isAlive = boolean('isAlive?', false);
+    const isAlive = boolean('isAlive?', false)
 
     return (
       <Cell isAlive={isAlive} clickHandler={talk} />

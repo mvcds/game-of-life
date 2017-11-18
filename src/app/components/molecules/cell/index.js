@@ -1,5 +1,6 @@
 const React = require('react')
 const bem = require('bem-classname')
+const PropTypes = require('prop-types')
 
 require('./cell.styl')
 
@@ -11,6 +12,11 @@ function Cell({ isAlive, clickHandler }) {
       {isAlive ? 'A' : 'D'}
     </button>
   )
+}
+
+Cell.propTypes = {
+  clickHandler: PropTypes.func.isRequired,
+  isAlive: PropTypes.bool.isRequired
 }
 
 module.exports = Cell
