@@ -34,11 +34,15 @@ function GameStateControls(props) {
 }
 
 function TimelineControls(props) {
-  const { step, steps, canGoNext, status, gotoFirst, gotoPrevious, gotoNext, gotoLast } = props
+  const {
+    generation, generations, canGoNext, status,
+    gotoFirst, gotoPrevious, gotoNext, gotoLast
+  } = props
+
   if (status !== GAME_STATUSES.PAUSED) return null
 
-  const isAtFirstStep = step === 0
-  const isAtLastStep = step === steps.length - 1
+  const isAtFirstStep = generation === 0
+  const isAtLastStep = generation === generations.length - 1
 
   return (
     <div className={baseClass('group')}>
@@ -68,9 +72,9 @@ getGameButtons.propTypes = {
 }
 
 TimelineControls.propTypes = {
-  step: PropTypes.number.isRequired,
+  generation: PropTypes.number.isRequired,
   canGoNext: PropTypes.bool.isRequired,
-  steps: PropTypes.arrayOf(PropTypes.object).isRequired,
+  generations: PropTypes.arrayOf(PropTypes.object).isRequired,
   status: PropTypes.string.isRequired,
   gotoFirst: PropTypes.func.isRequired,
   gotoPrevious: PropTypes.func.isRequired,

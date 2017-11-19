@@ -18,6 +18,8 @@ Then('the game status changes to {string}', (status) => {
   expect(this.game.status).to.equal(status)
 })
 
-Then('the game does not have a next generation', () => {
-  expect(this.game.canGoNext).to.equal(false)
+Then('the game stops at {int}', (generation) => {
+  while (this.game.canGoNext) this.game.goNext()
+
+  expect(this.game.generation).to.equal(generation)
 })

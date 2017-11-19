@@ -13,11 +13,11 @@ class Game {
     Object.assign(this, data)
 
     this.start = start.bind(this)
-    this.generations = [{ canGoNext: false }]
+    this.generations = [{ canGoNext:false }, {}, {}]
   }
 
   get canGoNext() {
-    return this.generations[this.step].canGoNext
+    return this.generations[this.generation].canGoNext
   }
 }
 

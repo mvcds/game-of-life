@@ -4,12 +4,11 @@ const BoardFactory = require('../Board/board.factory')
 
 const Game = require('./index')
 
-const STEPS = [{}, {}, {}]
 const ALL_DEAD = BoardFactory.AllDead()
 
 const game = new Factory()
-  .attr('step', 0)
-  .attr('steps', STEPS)
+  .attr('generation', 0)
+  .attr('generations', [])
 
 function build(data, isInstance) {
   const fixture = game.build(data)
@@ -25,6 +24,15 @@ function WithBoard(injection = {}, isInstance = true) {
   return build(data, isInstance)
 }
 
+function WithGenerations(number = 0, injection = {}, isInstance = true) {
+  const generations = Array(number).fill({})
+
+  const data = Object.assign({}, injection, { generations })
+
+  return build(data, isInstance)
+}
+
 module.exports = {
-  WithBoard
+  WithBoard,
+  WithGenerations
 }

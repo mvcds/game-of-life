@@ -19,9 +19,9 @@ const methods = {
   gotoLast: action('Go to Last')
 }
 
-const game = GameFactory.WithBoard()
+const game = GameFactory.WithGenerations(3)
 
-const lastGeneration = game.steps.length - 1
+const lastGeneration = game.generations.length - 1
 
 const range = {
   range: true,
@@ -37,9 +37,9 @@ storiesOf('Organisms / Control', module)
 
     const isPaused = status === GAME_STATUSES.PAUSED
 
-    game.step = isPaused ? number('Generation', 0, range) : game.step
+    game.generation = isPaused ? number('Generation', 0, range) : game.generation
 
-    const canGoNext = (isPaused && game.step === lastGeneration) && boolean('Can go next?', false)
+    const canGoNext = (isPaused && game.generation === lastGeneration) && boolean('Can go next?', false)
 
     return (
       <Control status={status} {...methods} {...game} canGoNext={canGoNext} />
