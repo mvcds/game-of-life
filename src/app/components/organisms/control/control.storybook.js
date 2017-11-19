@@ -39,7 +39,7 @@ storiesOf('Organisms / Control', module)
 
     game.step = isPaused ? number('Generation', 0, range) : game.step
 
-    game.isGameOver = (isPaused && game.step === lastGeneration) && boolean('Game Over?', false)
+    game.canGoNext = (isPaused && game.step === lastGeneration) && boolean('Can go next?', false)
 
     return (
       <Control status={status} {...methods} {...game} />
