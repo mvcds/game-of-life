@@ -7,3 +7,4 @@ Feature: Start Game
     Given I draw an empty board
     When I start the game
     Then the game status changes to "RUNNING"
+      And the game does not have a next generation

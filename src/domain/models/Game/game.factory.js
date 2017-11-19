@@ -10,7 +10,6 @@ const ALL_DEAD = BoardFactory.AllDead()
 const game = new Factory()
   .attr('step', 0)
   .attr('steps', STEPS)
-  .attr('canGoNext', false)
 
 function build(data, isInstance) {
   const fixture = game.build(data)

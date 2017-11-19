@@ -8,10 +8,17 @@ function start() {
   this.status = GAME_STATUSES.RUNNING
 }
 
-function Game(data) {
-  Object.assign(this, data, {
-    start: start.bind(this)
-  })
+class Game {
+  constructor(data) {
+    Object.assign(this, data)
+
+    this.start = start.bind(this)
+    this.generations = [{ canGoNext: false }]
+  }
+
+  get canGoNext() {
+    return this.generations[this.step].canGoNext
+  }
 }
 
 module.exports = Game

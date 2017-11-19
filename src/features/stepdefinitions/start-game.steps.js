@@ -17,3 +17,7 @@ When('I start the game', () => {
 Then('the game status changes to {string}', (status) => {
   expect(this.game.status).to.equal(status)
 })
+
+Then('the game does not have a next generation', () => {
+  expect(this.game.canGoNext).to.equal(false)
+})
