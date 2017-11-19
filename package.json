@@ -12,7 +12,7 @@
     "storybook": "start-storybook -p 9001 -c .storybook",
     "lint": "eslint src --cache=true --max-warnings 10",
     "integration": "cucumberjs src",
-    "integration:watch": "yarn integration && watch -p 'src/**/*.js' -c 'yarn integration'"
+    "integration:watch": "yarn integration & watch -p 'src/**/*.{js, feature}' -c 'yarn integration'"
   },
   "dependencies": {
     "bem-classname": "^0.1.1",
