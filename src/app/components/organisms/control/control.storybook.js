@@ -1,6 +1,6 @@
 const React = require('react')
 const { storiesOf } = require('@storybook/react')
-const { withKnobs, select } = require('@storybook/addon-knobs')
+const { withKnobs, select, number, boolean } = require('@storybook/addon-knobs')
 const { action } = require('@storybook/addon-actions')
 
 const { GAME_STATUSES } = require('../../../../domain/models/Game')
@@ -19,11 +19,15 @@ const methods = {
   gotoLast: action('Go to Last')
 }
 
-const GENERATION = {
-  RandomAtStep0: 'Zero',
-  RandomAtLastStepWithFuture: 'Last with Future',
-  RandomAtLastStepWithGameOver: 'Last with Game Over',
-  RandomAtMiddleStep: 'Random but Zero nor Last'
+const game = GameFactory.WithBoard()
+
+const lastGeneration = game.steps.length - 1
+
+const range = {
+  range: true,
+  min: 0,
+  max: lastGeneration,
+  step: 1
 }
 
 storiesOf('Organisms / Control', module)
@@ -31,9 +35,11 @@ storiesOf('Organisms / Control', module)
   .add('Default', () => {
     const status = select('Status', GAME_STATUSES, GAME_STATUSES.IDLE)
 
-    const generation = status === GAME_STATUSES.PAUSED && select('Generation', GENERATION, 'RandomAtStep0')
+    const isPaused = status === GAME_STATUSES.PAUSED
 
-    const game = GameFactory[generation || 'RandomAtStep0']()
+    game.step = isPaused ? number('Generation', 0, range) : game.step
+
+    game.isGameOver = (isPaused && game.step === lastGeneration) && boolean('Game Over?', false)
 
     return (
       <Control status={status} {...methods} {...game} />
