@@ -53,11 +53,22 @@ function TimelineControls(props) {
   )
 }
 
+function TimelineDisplay({ status, timestamp }) {
+  if (status === GAME_STATUSES.IDLE) return null
+
+  return (
+    <div className={baseClass('group')}>
+      {timestamp}
+    </div>
+  )
+}
+
 function Control(props) {
   return (
     <section className={baseClass()}>
       <GameStateControls {...props} />
       <TimelineControls {...props} />
+      <TimelineDisplay {...props} />
     </section>
   )
 }
@@ -79,6 +90,11 @@ TimelineControls.propTypes = {
   gotoPrevious: PropTypes.func.isRequired,
   gotoNext: PropTypes.func.isRequired,
   gotoLast: PropTypes.func.isRequired
+}
+
+TimelineDisplay.propTypes = {
+  status: PropTypes.string.isRequired,
+  timestamp: PropTypes.string.isRequired
 }
 
 Control.propTypes = Object.assign({}, GameStateControls.propTypes, TimelineControls.propTypes)

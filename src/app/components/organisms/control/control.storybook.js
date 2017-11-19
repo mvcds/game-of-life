@@ -37,7 +37,7 @@ storiesOf('Organisms / Control', module)
 
     game.timeline.generation = isPaused ? number('Generation', 0, range) : game.timeline.generation
 
-    const { isAtFirstGeneration, isAtLastGeneration } = game.timeline
+    const { isAtFirstGeneration, isAtLastGeneration, timestamp } = game.timeline
 
     const canGoNext = (isPaused && isAtLastGeneration) && boolean('Can go next?', false)
 
@@ -48,6 +48,7 @@ storiesOf('Organisms / Control', module)
         canGoNext={canGoNext}
         isAtFirstGeneration={isAtFirstGeneration}
         isAtLastGeneration={isAtLastGeneration}
+        timestamp={timestamp}
       />
     )
   })

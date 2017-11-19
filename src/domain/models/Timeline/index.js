@@ -25,6 +25,10 @@ class Timeline {
   get isAtLastGeneration() {
     return this.generation === this.topGeneration
   }
+
+  get timestamp() {
+    return `${this.generation} / ${this.topGeneration}`
+  }
 }
 
 module.exports = Timeline
