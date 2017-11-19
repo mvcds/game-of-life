@@ -21,5 +21,5 @@ Then('the game status changes to {string}', (status) => {
 Then('the game stops at {int}', (generation) => {
   while (this.game.canGoNext) this.game.goNext()
 
-  expect(this.game.generation).to.equal(generation)
+  expect(this.game.timeline.generation).to.equal(generation)
 })

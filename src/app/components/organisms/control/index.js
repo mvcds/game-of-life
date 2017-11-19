@@ -34,22 +34,21 @@ function GameStateControls(props) {
 }
 
 function TimelineControls(props) {
+  if (props.status !== GAME_STATUSES.PAUSED) return null
+
   const {
-    generation, generations, canGoNext, status,
+    isAtFirstGeneration, isAtLastGeneration, canGoNext,
     gotoFirst, gotoPrevious, gotoNext, gotoLast
   } = props
 
-  if (status !== GAME_STATUSES.PAUSED) return null
-
-  const isAtFirstStep = generation === 0
-  const isAtLastStep = generation === generations.length - 1
+  const isNextDisabled = isAtLastGeneration && !canGoNext
 
   return (
     <div className={baseClass('group')}>
-      <Button onClick={gotoFirst} key="first" disabled={isAtFirstStep}>First</Button>
-      <Button onClick={gotoPrevious} key="previous" disabled={isAtFirstStep}>Previous</Button>
-      <Button onClick={gotoNext} key="next" disabled={isAtLastStep && !canGoNext}>Next</Button>
-      <Button onClick={gotoLast} key="last" disabled={isAtLastStep}>Last</Button>
+      <Button onClick={gotoFirst} key="first" disabled={isAtFirstGeneration}>First</Button>
+      <Button onClick={gotoPrevious} key="previous" disabled={isAtFirstGeneration}>Previous</Button>
+      <Button onClick={gotoNext} key="next" disabled={isNextDisabled}>Next</Button>
+      <Button onClick={gotoLast} key="last" disabled={isAtLastGeneration}>Last</Button>
     </div>
   )
 }
@@ -72,9 +71,9 @@ getGameButtons.propTypes = {
 }
 
 TimelineControls.propTypes = {
-  generation: PropTypes.number.isRequired,
+  isAtFirstGeneration: PropTypes.bool.isRequired,
+  isAtLastGeneration: PropTypes.bool.isRequired,
   canGoNext: PropTypes.bool.isRequired,
-  generations: PropTypes.arrayOf(PropTypes.object).isRequired,
   status: PropTypes.string.isRequired,
   gotoFirst: PropTypes.func.isRequired,
   gotoPrevious: PropTypes.func.isRequired,

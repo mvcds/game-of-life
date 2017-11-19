@@ -1,3 +1,5 @@
+const Timeline = require('../Timeline')
+
 const GAME_STATUSES = {
   IDLE: 'IDLE',
   RUNNING: 'RUNNING',
@@ -10,14 +12,8 @@ function start() {
 
 class Game {
   constructor(data) {
-    Object.assign(this, data)
-
     this.start = start.bind(this)
-    this.generations = [{ canGoNext:false }, {}, {}]
-  }
-
-  get canGoNext() {
-    return this.generations[this.generation].canGoNext
+    this.timeline = new Timeline(data)
   }
 }
 

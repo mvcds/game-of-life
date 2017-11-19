@@ -8,7 +8,7 @@ const ALL_DEAD = BoardFactory.AllDead()
 
 const game = new Factory()
   .attr('generation', 0)
-  .attr('generations', [])
+  .attr('board', [])
 
 function build(data, isInstance) {
   const fixture = game.build(data)
@@ -25,11 +25,15 @@ function WithBoard(injection = {}, isInstance = true) {
 }
 
 function WithGenerations(number = 0, injection = {}, isInstance = true) {
-  const generations = Array(number).fill({})
+  const { board = ALL_DEAD } = injection
 
-  const data = Object.assign({}, injection, { generations })
+  const data = Object.assign({}, injection, { board })
 
-  return build(data, isInstance)
+  const gameAtGeneration = build(data, isInstance)
+
+  gameAtGeneration.timeline.generations = Array(number).fill({})
+
+  return gameAtGeneration
 }
 
 module.exports = {
