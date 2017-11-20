@@ -4,7 +4,7 @@ const { withKnobs, select, number, boolean } = require('@storybook/addon-knobs')
 const { action } = require('@storybook/addon-actions')
 
 const { GAME_STATUSES } = require('../../../../domain/models/Game')
-const GameFactory = require('../../../../domain/models/Game/game.factory')
+const TimelineFactory = require('../../../../domain/models/Timeline/timeline.factory')
 
 const Control = require('./index')
 
@@ -19,12 +19,12 @@ const methods = {
   gotoLast: action('Go to Last')
 }
 
-const game = GameFactory.WithGenerations(3)
+const timeline = TimelineFactory.WithGenerations(3)
 
 const range = {
   range: true,
   min: 0,
-  max: game.timeline.topGeneration,
+  max: timeline.topGeneration,
   step: 1
 }
 
@@ -35,9 +35,9 @@ storiesOf('Organisms / Control', module)
 
     const isPaused = status === GAME_STATUSES.PAUSED
 
-    game.timeline.generation = isPaused ? number('Generation', 0, range) : game.timeline.generation
+    timeline.generation = isPaused ? number('Generation', 0, range) : timeline.generation
 
-    const { isAtFirstGeneration, isAtLastGeneration, timestamp } = game.timeline
+    const { isAtFirstGeneration, isAtLastGeneration, timestamp } = timeline
 
     const canGoNext = (isPaused && isAtLastGeneration) && boolean('Can go next?', false)
 
