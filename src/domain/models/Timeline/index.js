@@ -1,51 +1,56 @@
 const Generation = require('./Generation')
 
-function createNewGeneration(timeline) {
-  if (!timeline.current.canGoNext) return false
-
-  const generation = timeline.current.next()
-
-  timeline.generations.push(generation)
-
-  return true
+//  TODO: check why 'apply' didn't work
+function updateLastGeneration(timeline, generation) {
+  timeline.currentGeneration = generation //  eslint-disable-line no-param-reassign
+  timeline.lastGeneration = generation //  eslint-disable-line no-param-reassign
 }
 
 class Timeline {
   constructor({ board: { cells } }) {
     const generation = new Generation({ cells })
 
-    this.generations = [generation]
-    this.generation = 0
+    this.goToGeneration = this.goToGeneration.bind(this)
 
-    this.next = this.next.bind(this)
-  }
-
-  get topGeneration() {
-    return this.generations.length - 1
+    updateLastGeneration(this, generation)
   }
 
   get isAtFirstGeneration() {
-    return this.generation === 0
+    return this.currentGeneration.isFirst
   }
 
   get isAtLastGeneration() {
-    return this.generation === this.topGeneration
+    return this.currentGeneration.isLast
   }
 
   get timestamp() {
-    return `${this.generation} / ${this.topGeneration}`
+    return `${this.currentGeneration.number} / ${this.lastGeneration.number}`
   }
 
-  get current() {
-    return this.generations[this.generation]
-  }
+  goToGeneration(number) {
+    const { number: current, previous, next, gameOverReason } = this.currentGeneration
 
-  next() {
-    if (this.isAtLastGeneration) createNewGeneration(this)
+    if (current === number) return true
 
-    this.generation += 1
+    const isMovingToNext = number > current
 
-    return true
+    const generation = isMovingToNext ? next : previous
+
+    if (generation) {
+      this.currentGeneration = generation
+
+      return this.goToGeneration(number)
+    }
+
+    if (!isMovingToNext || gameOverReason) return false
+
+    const newGeneration = this.currentGeneration.createNext()
+
+    this.currentGeneration.next = newGeneration
+
+    updateLastGeneration(this, newGeneration)
+
+    return this.goToGeneration(number)
   }
 }
 

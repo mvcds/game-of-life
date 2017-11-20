@@ -36,12 +36,10 @@ class Game {
     this.resume = changeState.bind(this, 'RESUME')
   }
 
-  get canGoNext() {
-    return this.timeline.current.canGoNext
-  }
-
   goNext() {
-    this.timeline.next()
+    const { number } = this.timeline.currentGeneration
+
+    return this.timeline.goToGeneration(number + 1)
   }
 }
 

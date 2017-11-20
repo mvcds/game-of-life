@@ -10,6 +10,7 @@ const timeline = new Factory()
 
 const generation = new Factory()
   .attr('cells', [])
+  .attr('previous', null)
 
 function build(data, isInstance) {
   const fixture = timeline.build(data)
@@ -17,8 +18,8 @@ function build(data, isInstance) {
   return isInstance ? new Timeline(fixture) : fixture
 }
 
-function buildGeneration(isInstance) {
-  const fixture = generation.build()
+function buildGeneration(previous, isInstance) {
+  const fixture = generation.build({ previous })
 
   return isInstance ? new Generation(fixture) : fixture
 }
@@ -29,9 +30,12 @@ function WithGenerations(number, injection = {}, isInstance = true) {
   const object = build(data, isInstance)
 
   for (let i = 1; i < number; i += 1) {
-    const generationObject = buildGeneration(isInstance)
+    const current = object.lastGeneration
 
-    object.generations.push(generationObject)
+    const generationObject = buildGeneration(current, isInstance)
+
+    current.next = generationObject
+    object.lastGeneration = generationObject
   }
 
   return object

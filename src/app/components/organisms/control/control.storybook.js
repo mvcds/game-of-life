@@ -24,7 +24,7 @@ const timeline = TimelineFactory.WithGenerations(3)
 const range = {
   range: true,
   min: 0,
-  max: timeline.topGeneration,
+  max: timeline.lastGeneration.number,
   step: 1
 }
 
@@ -35,11 +35,13 @@ storiesOf('Organisms / Control', module)
 
     const isPaused = status === GAME_STATUSES.PAUSED
 
-    timeline.generation = isPaused ? number('Generation', 0, range) : timeline.generation
+    const generation = isPaused ? number('Generation', 0, range) : 0
+
+    timeline.goToGeneration(generation)
 
     const { isAtFirstGeneration, isAtLastGeneration, timestamp } = timeline
 
-    const canGoNext = (isPaused && isAtLastGeneration) && boolean('Can go next?', false)
+    const canGoNext = (isPaused && isAtLastGeneration) ? boolean('Can go next?', false) : false
 
     return (
       <Control
