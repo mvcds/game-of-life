@@ -35,6 +35,14 @@ class Game {
     this.stop = changeState.bind(this, 'STOP')
     this.resume = changeState.bind(this, 'RESUME')
   }
+
+  get canGoNext() {
+    return this.timeline.current.canGoNext
+  }
+
+  goNext() {
+    this.timeline.next()
+  }
 }
 
 module.exports = Game

@@ -16,9 +16,7 @@ function build(data, isInstance) {
   return isInstance ? new Game(fixture) : fixture
 }
 
-function WithBoard(injection = {}, isInstance = true) {
-  const { board = ALL_DEAD } = injection
-
+function WithBoard(board = ALL_DEAD, injection = {}, isInstance = true) {
   const data = Object.assign({}, injection, { board })
 
   return build(data, isInstance)

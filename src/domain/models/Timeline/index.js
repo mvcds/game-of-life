@@ -1,17 +1,23 @@
 const Generation = require('./Generation')
 
-function addGeneration({ generations }, cells) {
-  const generation = new Generation({ cells })
+function createNewGeneration(timeline) {
+  if (!timeline.current.canGoNext) return false
 
-  generations.push(generation)
+  const generation = timeline.current.next()
+
+  timeline.generations.push(generation)
+
+  return true
 }
 
 class Timeline {
   constructor({ board: { cells } }) {
-    this.generations = []
+    const generation = new Generation({ cells })
+
+    this.generations = [generation]
     this.generation = 0
 
-    addGeneration(this, cells)
+    this.next = this.next.bind(this)
   }
 
   get topGeneration() {
@@ -28,6 +34,18 @@ class Timeline {
 
   get timestamp() {
     return `${this.generation} / ${this.topGeneration}`
+  }
+
+  get current() {
+    return this.generations[this.generation]
+  }
+
+  next() {
+    if (this.isAtLastGeneration) createNewGeneration(this)
+
+    this.generation += 1
+
+    return true
   }
 }
 
