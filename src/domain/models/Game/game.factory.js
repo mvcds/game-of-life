@@ -7,7 +7,6 @@ const Game = require('./index')
 const ALL_DEAD = BoardFactory.AllDead()
 
 const game = new Factory()
-  .attr('generation', 0)
   .attr('board', [])
 
 function build(data, isInstance) {

@@ -18,9 +18,9 @@ function createCell(cell, index) {
   return create(index)
 }
 
-function createCommonBoard(...aliveCells) {
-  const columns = MIN_SIZE
-  const rows = MIN_SIZE
+function createCommonBoard(injection, ...aliveCells) {
+  const columns = injection.columns || MIN_SIZE
+  const rows = injection.rows || MIN_SIZE
 
   const cells = Array(columns * rows).fill(0)
 
@@ -32,7 +32,7 @@ function createCommonBoard(...aliveCells) {
 }
 
 function AllDead(injection = {}) {
-  const commonBoard = createCommonBoard()
+  const commonBoard = createCommonBoard(injection)
 
   const data = Object.assign({}, injection, commonBoard)
 
@@ -40,7 +40,7 @@ function AllDead(injection = {}) {
 }
 
 function OneCellInMiddle(injection = {}) {
-  const commonBoard = createCommonBoard(12)
+  const commonBoard = createCommonBoard(injection, 12)
 
   const data = Object.assign({}, injection, commonBoard)
 

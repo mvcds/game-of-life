@@ -8,8 +8,8 @@ require('./board.styl')
 
 const baseClass = bem.bind(null, 'board')
 
-function render(cell, index) {
-  return <Cell key={index} clickHandler={this.onToggleCell} />
+function BoardCell({ isAlive }, index) {
+  return <Cell key={index} clickHandler={this.onToggleCell} isAlive={isAlive} />
 }
 
 function stylize(columns, rows) {
@@ -24,10 +24,12 @@ function Board({ columns, rows, cells, onToggleCell }) {
 
   return (
     <section className={baseClass()} style={style}>
-      {cells.map(render, { onToggleCell })}
+      {cells.map(BoardCell, { onToggleCell })}
     </section>
   )
 }
+
+BoardCell.propTypes = Cell.propTypes
 
 Board.propTypes = {
   columns: PropTypes.number.isRequired,
