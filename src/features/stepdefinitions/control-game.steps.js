@@ -10,8 +10,8 @@ Given('I draw a {string} board', (boardType) => {
   this.game = GameFactory.WithBoard(board)
 })
 
-When('I start the game', () => {
-  this.game.start()
+When('I {string} the game', (command) => {
+  this.game[command]()
 })
 
 Then('the game status changes to {string}', (status) => {
