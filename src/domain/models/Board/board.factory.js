@@ -17,6 +17,11 @@ function AllDead(injection = {}) {
   return board.build(data)
 }
 
+function Random(injection = {}) {
+  return AllDead(injection)
+}
+
 module.exports = {
-  AllDead
+  AllDead,
+  Random
 }

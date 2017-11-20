@@ -4,8 +4,8 @@ const { expect } = require('chai')
 const BoardFactory = require('../../domain/models/Board/board.factory')
 const GameFactory = require('../../domain/models/Game/game.factory')
 
-Given('I draw an empty board', () => {
-  const board = BoardFactory.AllDead()
+Given('I draw a {string} board', (boardType) => {
+  const board = BoardFactory[boardType]()
 
   this.game = GameFactory.WithBoard(board)
 })
