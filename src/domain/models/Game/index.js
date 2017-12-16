@@ -29,11 +29,16 @@ class Game {
   constructor(data) {
     this.status = GAME_STATUSES.IDLE
     this.timeline = new Timeline(data)
+    this.board = data.board
 
     this.start = changeState.bind(this, 'START')
     this.pause = changeState.bind(this, 'PAUSE')
     this.stop = changeState.bind(this, 'STOP')
     this.resume = changeState.bind(this, 'RESUME')
+  }
+
+  get cells() {
+    return this.timeline.currentGeneration.cells
   }
 
   goNext() {

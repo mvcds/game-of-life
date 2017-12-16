@@ -15,16 +15,19 @@ class Board {
   static get MAX_SIZE() { return MAX_BOARD_SIZE }
 
   constructor(data) {
-    const { columns, rows, cells } = data
+    const { columns, rows } = data
 
     this.columns = limitSize(columns)
     this.rows = limitSize(rows)
-    this.cells = cells || []
 
     this.addColumn = adjustSize.bind(this, 'columns', 1)
     this.removeColumn = adjustSize.bind(this, 'columns', -1)
     this.addRow = adjustSize.bind(this, 'rows', 1)
     this.removeRow = adjustSize.bind(this, 'rows', -1)
+  }
+
+  get size() {
+    return this.columns * this.rows
   }
 }
 

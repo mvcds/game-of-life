@@ -4,7 +4,7 @@ Feature: Control Game
   So that I can see how it is resolved
 
   Background:
-    Given I draw a "Random" board
+    Given I draw a "Random" game
     When I "start" the game
 
   Scenario: Start Game

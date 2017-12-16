@@ -1,12 +1,10 @@
 const { Factory } = require('rosie')
 
-const BoardFactory = require('../Board/board.factory')
-
 const Timeline = require('./index')
 const Generation = require('./Generation')
 
 const timeline = new Factory()
-  .attr('board', BoardFactory.AllDead())
+  .attr('cells', [])
 
 const generation = new Factory()
   .attr('cells', [])

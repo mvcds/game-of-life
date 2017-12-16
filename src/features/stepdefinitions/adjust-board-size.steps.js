@@ -4,7 +4,7 @@ const { expect } = require('chai')
 const BoardFactory = require('../../domain/models/Board/board.factory')
 
 Given('a {int} x {int} board', (columns, rows) => {
-  this.board = BoardFactory.AllDead({ columns, rows })
+  this.board = BoardFactory.SimplestBoard({ columns, rows })
 })
 
 When('I use {string} on board', (fn) => {

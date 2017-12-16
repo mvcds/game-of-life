@@ -12,7 +12,7 @@ function getGameOverReason(generation) {
 
 class Generation {
   constructor({ cells, previous }) {
-    this.cells = cells.filter(isAlive)
+    this.cells = cells
     this.previous = previous
     this.next = null
 

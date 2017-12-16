@@ -7,7 +7,7 @@ function updateLastGeneration(timeline, generation) {
 }
 
 class Timeline {
-  constructor({ board: { cells } }) {
+  constructor({ cells }) {
     const generation = new Generation({ cells })
 
     this.goToGeneration = this.goToGeneration.bind(this)

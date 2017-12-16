@@ -1,13 +1,10 @@
 const { Given, When, Then } = require('cucumber')
 const { expect } = require('chai')
 
-const BoardFactory = require('../../domain/models/Board/board.factory')
 const GameFactory = require('../../domain/models/Game/game.factory')
 
-Given('I draw a {string} board', (boardType) => {
-  const board = BoardFactory[boardType]()
-
-  this.game = GameFactory.WithBoard(board)
+Given('I draw a {string} game', (boardType) => {
+  this.game = GameFactory[boardType]()
 })
 
 When('I {string} the game', (command) => {
