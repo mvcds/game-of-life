@@ -3,7 +3,9 @@ const { random } = require('faker')
 
 const CellFactory = require('../Cell/cell.factory')
 
-const MIN_SIZE = 5
+const Board = require('./index')
+
+const { MIN_SIZE } = Board
 
 const board = new Factory()
   .attr('columns', MIN_SIZE)
@@ -31,20 +33,26 @@ function createCommonBoard(injection, ...aliveCells) {
   }
 }
 
-function AllDead(injection = {}) {
+function build(data, isInstance) {
+  const fixture = board.build(data)
+
+  return isInstance ? new Board(fixture) : fixture
+}
+
+function AllDead(injection = {}, isInstance = true) {
   const commonBoard = createCommonBoard(injection)
 
   const data = Object.assign({}, injection, commonBoard)
 
-  return board.build(data)
+  return build(data, isInstance)
 }
 
-function OneCellInMiddle(injection = {}) {
+function OneCellInMiddle(injection = {}, isInstance = true) {
   const commonBoard = createCommonBoard(injection, 12)
 
   const data = Object.assign({}, injection, commonBoard)
 
-  return board.build(data)
+  return build(data, isInstance)
 }
 
 const boardFunctions = {
@@ -54,10 +62,10 @@ const boardFunctions = {
 
 const randomFunctions = Object.values(boardFunctions)
 
-function Random(injection = {}) {
+function Random(injection = {}, isInstance = true) {
   const randomBoard = random.arrayElement(randomFunctions)
 
-  return randomBoard(injection)
+  return randomBoard(injection, isInstance)
 }
 
 module.exports = Object.assign({}, boardFunctions, {
