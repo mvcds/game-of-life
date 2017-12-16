@@ -9,10 +9,10 @@ function adjustSize(key, increment) {
   this[key] = limitSize(this[key] + increment)
 }
 
-class Board {
-  static get MIN_SIZE() { return MIN_BOARD_SIZE }
+class Settings {
+  static get MIN_BOARD_SIZE() { return MIN_BOARD_SIZE }
 
-  static get MAX_SIZE() { return MAX_BOARD_SIZE }
+  static get MAX_BOARD_SIZE() { return MAX_BOARD_SIZE }
 
   constructor(data) {
     const { columns, rows } = data
@@ -26,9 +26,9 @@ class Board {
     this.removeRow = adjustSize.bind(this, 'rows', -1)
   }
 
-  get size() {
+  get boardSize() {
     return this.columns * this.rows
   }
 }
 
-module.exports = Board
+module.exports = Settings

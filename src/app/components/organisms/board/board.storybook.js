@@ -4,7 +4,7 @@ const { withKnobs, number } = require('@storybook/addon-knobs')
 const { action } = require('@storybook/addon-actions')
 
 const GameFactory = require('../../../../domain/models/Game/game.factory')
-const BoardFactory = require('../../../../domain/models/Board/board.factory')
+const SettingsFactory = require('../../../../domain/values/Settings/settings.factory')
 
 const Board = require('./index')
 
@@ -26,23 +26,23 @@ function beautifyName(name) {
   return name.split(/(?=[A-Z])/).join(' ')
 }
 
-function createBoard(factory) {
+function createSettings(factory) {
   const columns = number('columns', min, options)
   const rows = number('rows', min, options)
 
-  const board = BoardFactory.SimplestBoard({ columns, rows })
+  const settings = SettingsFactory.DefaultSettings({ columns, rows })
 
-  const { cells } = factory({ board })
+  const { cells } = factory({ settings })
 
   return (
-    <Board {...board} cells={cells} onToggleCell={toggleCellHandler} />
+    <Board {...settings} cells={cells} onToggleCell={toggleCellHandler} />
   )
 }
 
-function fillWithBoard([key, factory]) {
+function fillWithSettings([key, factory]) {
   const name = beautifyName(key)
 
-  this.stories.add(name, () => createBoard(factory))
+  this.stories.add(name, () => createSettings(factory))
 }
 
 const stories = storiesOf('Organisms / Board', module)
@@ -50,4 +50,4 @@ const stories = storiesOf('Organisms / Board', module)
 
 Object.entries(GameFactory)
   .filter(excludByName)
-  .forEach(fillWithBoard, { stories })
+  .forEach(fillWithSettings, { stories })

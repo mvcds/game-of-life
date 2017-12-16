@@ -1,16 +1,16 @@
 const { Given, When, Then } = require('cucumber')
 const { expect } = require('chai')
 
-const BoardFactory = require('../../domain/models/Board/board.factory')
+const SettingsFactory = require('../../domain/values/Settings/settings.factory')
 
 Given('a {int} x {int} board', (columns, rows) => {
-  this.board = BoardFactory.SimplestBoard({ columns, rows })
+  this.settings = SettingsFactory.DefaultSettings({ columns, rows })
 })
 
 When('I use {string} on board', (fn) => {
-  this.board[fn]()
+  this.settings[fn]()
 })
 
 Then('the board gets {int} {string}', (size, key) => {
-  expect(this.board[key]).to.equal(size)
+  expect(this.settings[key]).to.equal(size)
 })

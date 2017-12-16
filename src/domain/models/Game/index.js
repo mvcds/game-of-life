@@ -29,7 +29,7 @@ class Game {
   constructor(data) {
     this.status = GAME_STATUSES.IDLE
     this.timeline = new Timeline(data)
-    this.board = data.board
+    this.settings = data.settings
 
     this.start = changeState.bind(this, 'START')
     this.pause = changeState.bind(this, 'PAUSE')

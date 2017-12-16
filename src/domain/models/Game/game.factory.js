@@ -1,13 +1,13 @@
 const { Factory } = require('rosie')
 const { random } = require('faker')
 
-const BoardFactory = require('../Board/board.factory')
+const SettingsFactory = require('../../values/Settings/settings.factory')
 const CellFactory = require('../Cell/cell.factory')
 
 const Game = require('./index')
 
 const game = new Factory()
-  .attr('board', BoardFactory.SimplestBoard)
+  .attr('settings', SettingsFactory.DefaultSettings)
   .attr('cells', [])
 
 function createCell(cell, index) {
@@ -18,8 +18,8 @@ function createCell(cell, index) {
   return create(index)
 }
 
-function createCells({ board = BoardFactory.SimplestBoard() }, ...aliveCells) {
-  const cells = Array(board.size).fill(0)
+function createCells({ settings = SettingsFactory.DefaultSettings() }, ...aliveCells) {
+  const cells = Array(settings.boardSize).fill(0)
 
   return {
     cells: cells.map(createCell, { aliveCells })
@@ -48,9 +48,9 @@ const gameFunctions = {
 const randomFunctions = Object.values(gameFunctions)
 
 function Random(injection = {}, isInstance = true) {
-  const randomBoard = random.arrayElement(randomFunctions)
+  const randomSettings = random.arrayElement(randomFunctions)
 
-  return randomBoard(injection, isInstance)
+  return randomSettings(injection, isInstance)
 }
 
 module.exports = Object.assign({}, gameFunctions, {
