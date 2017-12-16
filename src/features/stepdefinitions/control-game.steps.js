@@ -22,3 +22,9 @@ Then('the game stops at {int}', (generation) => {
 
   expect(number).to.equal(generation)
 })
+
+Then('the game is over with {string}', (expectedGameOver) => {
+  const { gameOver } = this.game
+
+  expect(gameOver).to.equal(expectedGameOver)
+})

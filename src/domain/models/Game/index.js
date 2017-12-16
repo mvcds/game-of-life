@@ -41,6 +41,10 @@ class Game {
     return this.timeline.currentGeneration.cells
   }
 
+  get gameOver() {
+    return this.timeline.lastGeneration.gameOverReason
+  }
+
   goNext() {
     const { number } = this.timeline.currentGeneration
 

@@ -7,9 +7,10 @@ Feature: Play Game
     Given I draw a "AllDead" game
     When I "start" the game
     Then the game stops at 0
+      And the game is over with "EMPTY_BOARD"
 
   Scenario: Simplest game
     Given I draw a "OneCellInMiddle" game
     When I "start" the game
     Then the game stops at 1
-
+      And the game is over with "EMPTY_BOARD"
