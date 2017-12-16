@@ -6,6 +6,42 @@ function updateLastGeneration(timeline, generation) {
   timeline.lastGeneration = generation //  eslint-disable-line no-param-reassign
 }
 
+function update(timeline, generation, number) {
+  //  eslint-disable-next-line no-param-reassign
+  timeline.currentGeneration = generation
+
+  return timeline.goToGeneration(number)
+}
+
+function createNewGeneration(timeline, number) {
+  const newGeneration = timeline.currentGeneration.createNext()
+
+  //  eslint-disable-next-line no-param-reassign
+  timeline.currentGeneration.next = newGeneration
+
+  updateLastGeneration(timeline, newGeneration)
+
+  return timeline.goToGeneration(number)
+}
+
+function moveToNext(timeline, number) {
+  const { next, gameOverReason } = timeline.currentGeneration
+
+  if (gameOverReason) return false
+
+  if (next) return update(timeline, next, number)
+
+  return createNewGeneration(timeline, number)
+}
+
+function moveToPrevious(timeline, number) {
+  const { previous } = timeline.currentGeneration
+
+  if (!previous) return false
+
+  return update(timeline, previous, number)
+}
+
 class Timeline {
   constructor({ cells }) {
     const generation = new Generation({ cells })
@@ -27,30 +63,14 @@ class Timeline {
     return `${this.currentGeneration.number} / ${this.lastGeneration.number}`
   }
 
-  goToGeneration(number) {
-    const { number: current, previous, next, gameOverReason } = this.currentGeneration
+  goToGeneration(targetNumber) {
+    const { number } = this.currentGeneration
 
-    if (current === number) return true
+    if (number === targetNumber) return true
 
-    const isMovingToNext = number > current
+    const move = targetNumber > number ? moveToNext : moveToPrevious
 
-    const generation = isMovingToNext ? next : previous
-
-    if (generation) {
-      this.currentGeneration = generation
-
-      return this.goToGeneration(number)
-    }
-
-    if (!isMovingToNext || gameOverReason) return false
-
-    const newGeneration = this.currentGeneration.createNext()
-
-    this.currentGeneration.next = newGeneration
-
-    updateLastGeneration(this, newGeneration)
-
-    return this.goToGeneration(number)
+    return move(this, targetNumber)
   }
 }
 
