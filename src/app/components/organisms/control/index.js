@@ -10,27 +10,34 @@ require('./control.styl')
 
 const baseClass = bem.bind(null, 'control')
 
-function getGameButtons({ status, playHandler, pauseHandler, resumeHandler, stopHandler }) {
-  if (status === GAME_STATUSES.IDLE) return <Button onClick={playHandler}>Play</Button>
-
-  const button = status === GAME_STATUSES.PAUSED
-    ? <Button onClick={resumeHandler} key="resume">Resume</Button>
-    : <Button onClick={pauseHandler} key="pause">Pause</Button>
-
-  return [
-    button,
-    <Button onClick={stopHandler} key="stop">Stop</Button>
-  ]
+function IdleControls({ playHandler }) {
+  return <Button onClick={playHandler} key="play">Play</Button>
 }
 
-function GameStateControls(props) {
-  const buttons = getGameButtons(props)
-
+function RunningControls({ pauseHandler, stopHandler }) {
   return (
     <div className={baseClass('group')}>
-      {buttons}
+      <Button onClick={pauseHandler} key="pause">Pause</Button>
+      <Button onClick={stopHandler} key="stop">Stop</Button>
     </div>
   )
+}
+
+function PausedControls({ resumeHandler, stopHandler }) {
+  return (
+    <div className={baseClass('group')}>
+      <Button onClick={resumeHandler} key="resume">Resume</Button>
+      <Button onClick={stopHandler} key="stop">Stop</Button>
+    </div>
+  )
+}
+
+function getControlByState({ status }) {
+  if (status === GAME_STATUSES.IDLE) return IdleControls
+
+  if (status === GAME_STATUSES.RUNNING) return RunningControls
+
+  return PausedControls
 }
 
 function TimelineControls(props) {
@@ -64,6 +71,8 @@ function TimelineDisplay({ status, timestamp }) {
 }
 
 function Control(props) {
+  const GameStateControls = getControlByState(props)
+
   return (
     <section className={baseClass()}>
       <GameStateControls {...props} />
@@ -73,10 +82,16 @@ function Control(props) {
   )
 }
 
-getGameButtons.propTypes = {
-  status: PropTypes.string.isRequired,
-  playHandler: PropTypes.func.isRequired,
+IdleControls.propTypes = {
+  playHandler: PropTypes.func.isRequired
+}
+
+RunningControls.propTypes = {
   pauseHandler: PropTypes.func.isRequired,
+  stopHandler: PropTypes.func.isRequired
+}
+
+PausedControls.propTypes = {
   resumeHandler: PropTypes.func.isRequired,
   stopHandler: PropTypes.func.isRequired
 }
@@ -97,6 +112,12 @@ TimelineDisplay.propTypes = {
   timestamp: PropTypes.string.isRequired
 }
 
-Control.propTypes = Object.assign({}, GameStateControls.propTypes, TimelineControls.propTypes)
+//  eslint-disable-next-line function-paren-newline
+Control.propTypes = Object.assign({},
+  TimelineControls.propTypes,
+  IdleControls.propTypes,
+  RunningControls.propTypes,
+  PausedControls.propTypes
+)
 
 module.exports = Control
