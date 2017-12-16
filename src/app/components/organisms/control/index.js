@@ -10,8 +10,48 @@ require('./control.styl')
 
 const baseClass = bem.bind(null, 'control')
 
-function IdleControls({ playHandler }) {
-  return <Button onClick={playHandler} key="play">Play</Button>
+function PlayButton({ playHandler }) {
+  return (
+    <div className={baseClass('group')}>
+      <Button onClick={playHandler} key="play">Play</Button>
+    </div>
+  )
+}
+
+function SizeAdjuster({ onAdd, onRemove, name, size, limits }) {
+  const isAddDisabled = size >= limits.max
+  const isRemoveDisabled = size <= limits.min
+
+  return (
+    <div className={baseClass('group')}>
+      <Button onClick={onAdd} disabled={isAddDisabled}>{ name }+</Button>
+      <Button onClick={onRemove} disabled={isRemoveDisabled}>{ name }-</Button>
+    </div>
+  )
+}
+
+function IdleControls(props) {
+  const { playHandler, addColumn, removeColum, addRow, removeRow, columns, rows, limits } = props
+
+  return [
+    <PlayButton playHandler={playHandler} key="play" />,
+    <SizeAdjuster
+      onAdd={addColumn}
+      onRemove={removeColum}
+      name="Col."
+      size={columns}
+      limits={limits}
+      key="columns"
+    />,
+    <SizeAdjuster
+      onAdd={addRow}
+      onRemove={removeRow}
+      name="Rows"
+      size={rows}
+      limits={limits}
+      key="rows"
+    />
+  ]
 }
 
 function RunningControls({ pauseHandler, stopHandler }) {
@@ -82,8 +122,27 @@ function Control(props) {
   )
 }
 
-IdleControls.propTypes = {
+SizeAdjuster.propTypes = {
+  onAdd: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  size: PropTypes.number.isRequired,
+  limits: PropTypes.object.isRequired
+}
+
+PlayButton.propTypes = {
   playHandler: PropTypes.func.isRequired
+}
+
+IdleControls.propTypes = {
+  playHandler: PropTypes.func.isRequired,
+  addColumn: PropTypes.func.isRequired,
+  removeColum: PropTypes.func.isRequired,
+  addRow: PropTypes.func.isRequired,
+  removeRow: PropTypes.func.isRequired,
+  columns: PropTypes.number.isRequired,
+  rows: PropTypes.number.isRequired,
+  limits: PropTypes.object.isRequired
 }
 
 RunningControls.propTypes = {
