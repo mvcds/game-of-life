@@ -32,16 +32,8 @@ function build(data, isInstance) {
   return isInstance ? new Game(fixture) : fixture
 }
 
-function AllDead(injection = {}, isInstance = true) {
-  const cells = createCells(injection)
-
-  const data = Object.assign({}, injection, cells)
-
-  return build(data, isInstance)
-}
-
-function OneCellInMiddle(injection = {}, isInstance = true) {
-  const cells = createCells(injection, 12)
+function withCells(injection = {}, isInstance = true) {
+  const cells = createCells(injection, ...this)
 
   const data = Object.assign({}, injection, cells)
 
@@ -49,8 +41,8 @@ function OneCellInMiddle(injection = {}, isInstance = true) {
 }
 
 const gameFunctions = {
-  AllDead,
-  OneCellInMiddle
+  AllDead: withCells.bind([]),
+  OneCellInMiddle: withCells.bind([12])
 }
 
 const randomFunctions = Object.values(gameFunctions)

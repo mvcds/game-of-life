@@ -18,11 +18,11 @@ const options = {
   step: 1
 }
 
-function excludByName({ name }) {
+function excludByName([name]) {
   return name !== 'Random'
 }
 
-function beautifyName({ name }) {
+function beautifyName(name) {
   return name.split(/(?=[A-Z])/).join(' ')
 }
 
@@ -39,8 +39,8 @@ function createBoard(factory) {
   )
 }
 
-function fillWithBoard(factory) {
-  const name = beautifyName(factory)
+function fillWithBoard([key, factory]) {
+  const name = beautifyName(key)
 
   this.stories.add(name, () => createBoard(factory))
 }
@@ -48,6 +48,6 @@ function fillWithBoard(factory) {
 const stories = storiesOf('Organisms / Board', module)
   .addDecorator(withKnobs)
 
-Object.values(GameFactory)
+Object.entries(GameFactory)
   .filter(excludByName)
   .forEach(fillWithBoard, { stories })
