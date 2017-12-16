@@ -17,25 +17,34 @@ const options = {
   step: 1
 }
 
-storiesOf('Organisms / Board', module)
+function excludByName({ name }) {
+  return name !== 'Random'
+}
+
+function beautifyName({ name }) {
+  return name.split(/(?=[A-Z])/).join(' ')
+}
+
+function createBoard(factory) {
+  const columns = number('columns', min, options)
+  const rows = number('rows', min, options)
+
+  const board = factory({ columns, rows })
+
+  return (
+    <Board {...board} onToggleCell={toggleCellHandler} />
+  )
+}
+
+function fillWithBoard(factory) {
+  const name = beautifyName(factory)
+
+  this.stories.add(name, () => createBoard(factory))
+}
+
+const stories = storiesOf('Organisms / Board', module)
   .addDecorator(withKnobs)
-  .add('All Dead', () => {
-    const columns = number('columns', min, options)
-    const rows = number('rows', min, options)
 
-    const board = BoardFactory.AllDead({ columns, rows })
-
-    return (
-      <Board {...board} onToggleCell={toggleCellHandler} />
-    )
-  })
-  .add('One Cell Alive', () => {
-    const columns = number('columns', min, options)
-    const rows = number('rows', min, options)
-
-    const board = BoardFactory.OneCellInMiddle({ columns, rows })
-
-    return (
-      <Board {...board} onToggleCell={toggleCellHandler} />
-    )
-  })
+Object.values(BoardFactory)
+  .filter(excludByName)
+  .forEach(fillWithBoard, { stories })
