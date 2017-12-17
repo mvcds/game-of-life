@@ -1,5 +1,7 @@
 const Timeline = require('../Timeline')
 
+const GameOver = require('./GameOver')
+
 const FSM = {
   IDLE: {
     START: 'RUNNING'
@@ -42,7 +44,7 @@ class Game {
   }
 
   get gameOver() {
-    return this.timeline.lastGeneration.gameOverReason
+    return GameOver.getReason(this.timeline.lastGeneration)
   }
 
   goNext() {

@@ -1,21 +1,13 @@
-function isAlive(cell) {
-  return cell.isAlive
-}
-
-function getGameOverReason(generation) {
-  if (generation.gameOver) return generation.gameOver
-
-  if (!generation.cells.some(isAlive)) return 'EMPTY_BOARD'
-
-  return null
-}
-
-function isDifferentCell(cell, index) {
-  return cell !== this.cells[index]
-}
-
 function getNextState(cell, index, cells) {
   return cell.getNextState(cells, this.settings)
+}
+
+function isEqualCell(cell, index) {
+  return cell === this.cells[index]
+}
+
+function isDead({ isAlive }) {
+  return !isAlive
 }
 
 class Generation {
@@ -35,22 +27,20 @@ class Generation {
     return !this.next
   }
 
-  get gameOverReason() {
-    this.gameOver = getGameOverReason(this)
-
-    return this.gameOver
+  get isEmpty() {
+    return this.cells.every(isDead)
   }
 
   createNext(settings) {
     const cells = this.cells.map(getNextState, { settings })
 
-    const hasChanged = this.cells.some(isDifferentCell, { cells })
+    const next = new Generation({ cells, previous: this })
 
-    if (hasChanged) return new Generation({ cells, previous: this })
+    if (!this.isEqual(next)) this.next = next
+  }
 
-    this.gameOver = 'STATIC_BOARD'
-
-    return null
+  isEqual({ cells }) {
+    return this.cells.every(isEqualCell, { cells })
   }
 }
 

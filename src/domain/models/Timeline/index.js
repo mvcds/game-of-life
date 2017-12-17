@@ -14,14 +14,15 @@ function changeCurrentGeneration(timeline, generation, number, settings) {
 }
 
 function createNewGeneration(timeline, number, settings) {
-  const newGeneration = timeline.currentGeneration.createNext(settings)
+  const { currentGeneration } = timeline
 
-  if (!newGeneration) return false
+  currentGeneration.createNext(settings)
 
-  //  eslint-disable-next-line no-param-reassign
-  timeline.currentGeneration.next = newGeneration
+  const { next } = currentGeneration
 
-  updateLastGeneration(timeline, newGeneration)
+  if (!next) return false
+
+  updateLastGeneration(timeline, next)
 
   return timeline.goToGeneration(number, settings)
 }
