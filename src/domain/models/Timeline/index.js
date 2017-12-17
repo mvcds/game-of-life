@@ -6,7 +6,7 @@ function updateLastGeneration(timeline, generation) {
   timeline.lastGeneration = generation //  eslint-disable-line no-param-reassign
 }
 
-function update(timeline, generation, number, settings) {
+function changeCurrentGeneration(timeline, generation, number, settings) {
   //  eslint-disable-next-line no-param-reassign
   timeline.currentGeneration = generation
 
@@ -31,7 +31,7 @@ function moveToNext(timeline, number, settings) {
 
   if (gameOverReason) return false
 
-  if (next) return update(timeline, next, number, settings)
+  if (next) return changeCurrentGeneration(timeline, next, number, settings)
 
   return createNewGeneration(timeline, number, settings)
 }
@@ -41,7 +41,7 @@ function moveToPrevious(timeline, number, settings) {
 
   if (!previous) return false
 
-  return update(timeline, previous, number, settings)
+  return changeCurrentGeneration(timeline, previous, number, settings)
 }
 
 class Timeline {
