@@ -6,40 +6,42 @@ function updateLastGeneration(timeline, generation) {
   timeline.lastGeneration = generation //  eslint-disable-line no-param-reassign
 }
 
-function update(timeline, generation, number) {
+function update(timeline, generation, number, settings) {
   //  eslint-disable-next-line no-param-reassign
   timeline.currentGeneration = generation
 
-  return timeline.goToGeneration(number)
+  return timeline.goToGeneration(number, settings)
 }
 
-function createNewGeneration(timeline, number) {
-  const newGeneration = timeline.currentGeneration.createNext()
+function createNewGeneration(timeline, number, settings) {
+  const newGeneration = timeline.currentGeneration.createNext(settings)
+
+  if (!newGeneration) return false
 
   //  eslint-disable-next-line no-param-reassign
   timeline.currentGeneration.next = newGeneration
 
   updateLastGeneration(timeline, newGeneration)
 
-  return timeline.goToGeneration(number)
+  return timeline.goToGeneration(number, settings)
 }
 
-function moveToNext(timeline, number) {
+function moveToNext(timeline, number, settings) {
   const { next, gameOverReason } = timeline.currentGeneration
 
   if (gameOverReason) return false
 
-  if (next) return update(timeline, next, number)
+  if (next) return update(timeline, next, number, settings)
 
-  return createNewGeneration(timeline, number)
+  return createNewGeneration(timeline, number, settings)
 }
 
-function moveToPrevious(timeline, number) {
+function moveToPrevious(timeline, number, settings) {
   const { previous } = timeline.currentGeneration
 
   if (!previous) return false
 
-  return update(timeline, previous, number)
+  return update(timeline, previous, number, settings)
 }
 
 class Timeline {
@@ -63,14 +65,14 @@ class Timeline {
     return `${this.currentGeneration.number} / ${this.lastGeneration.number}`
   }
 
-  goToGeneration(targetNumber) {
+  goToGeneration(targetNumber, settings) {
     const { number } = this.currentGeneration
 
     if (number === targetNumber) return true
 
     const move = targetNumber > number ? moveToNext : moveToPrevious
 
-    return move(this, targetNumber)
+    return move(this, targetNumber, settings)
   }
 }
 

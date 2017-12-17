@@ -1,13 +1,15 @@
 const { Factory } = require('rosie')
 
+const Cell = require('./index')
+
 const cell = new Factory()
   .attr('isAlive', false)
   .attr('isLocked', false)
 
-function build(data) {
+function build(data, isInstance) {
   const fixture = cell.build(data)
 
-  return fixture
+  return isInstance ? new Cell(fixture) : fixture
 }
 
 function LockedALive(index, injection = {}, isInstance = true) {

@@ -10,6 +10,14 @@ function getGameOverReason(generation) {
   return null
 }
 
+function isDifferentCell(cell, index) {
+  return cell !== this.cells[index]
+}
+
+function getNextState(cell, index, cells) {
+  return cell.getNextState(cells, this.settings)
+}
+
 class Generation {
   constructor({ cells, previous }) {
     this.cells = cells
@@ -33,8 +41,16 @@ class Generation {
     return this.gameOver
   }
 
-  createNext() {
-    return new Generation({ cells: [], previous: this })
+  createNext(settings) {
+    const cells = this.cells.map(getNextState, { settings })
+
+    const hasChanged = this.cells.some(isDifferentCell, { cells })
+
+    if (hasChanged) return new Generation({ cells, previous: this })
+
+    this.gameOver = 'STATIC_BOARD'
+
+    return null
   }
 }
 

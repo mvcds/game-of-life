@@ -3,6 +3,18 @@ const { expect } = require('chai')
 
 const GameFactory = require('../../domain/models/Game/game.factory')
 
+function isBelow(game, generation) {
+  if (!game.goNext()) return false
+
+  const { number } = game.timeline.lastGeneration
+
+  const error = `Game should have at most ${generation} generations`
+
+  expect(number).to.most(generation, error)
+
+  return true
+}
+
 Given('I draw a {string} game', (boardType) => {
   this.game = GameFactory[boardType]()
 })
@@ -16,7 +28,7 @@ Then('the game status changes to {string}', (status) => {
 })
 
 Then('the game stops at {int}', (generation) => {
-  while (this.game.goNext());
+  while (isBelow(this.game, generation));
 
   const { number } = this.game.timeline.lastGeneration
 

@@ -14,3 +14,9 @@ Feature: Play Game
     When I "start" the game
     Then the game stops at 1
       And the game is over with "EMPTY_BOARD"
+
+  Scenario: Still life
+    Given I draw a "Tub" game
+    When I "start" the game
+    Then the game stops at 0
+      And the game is over with "STATIC_BOARD"

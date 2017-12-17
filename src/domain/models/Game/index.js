@@ -48,7 +48,7 @@ class Game {
   goNext() {
     const { number } = this.timeline.currentGeneration
 
-    return this.timeline.goToGeneration(number + 1)
+    return this.timeline.goToGeneration(number + 1, this.settings)
   }
 }
 
