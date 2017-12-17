@@ -24,8 +24,8 @@ function SizeAdjuster({ onAdd, onRemove, name, size, limits }) {
 
   return (
     <div className={baseClass('group')}>
-      <Button onClick={onAdd} disabled={isAddDisabled}>{ name }+</Button>
       <Button onClick={onRemove} disabled={isRemoveDisabled}>{ name }-</Button>
+      <Button onClick={onAdd} disabled={isAddDisabled}>{ name }+</Button>
     </div>
   )
 }
