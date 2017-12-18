@@ -26,9 +26,7 @@ function createNewGeneration(number, settings) {
 }
 
 function moveToNext(number, settings) {
-  const { next, gameOverReason } = this.currentGeneration
-
-  if (gameOverReason) return false
+  const { next } = this.currentGeneration
 
   const move = next ? changeCurrentGeneration : createNewGeneration
 
