@@ -1,35 +1,12 @@
+const { DEFAULT_STATE, changeState } = require('../../values/GameStatuses')
+
 const Timeline = require('../Timeline')
 
 const GameOver = require('./GameOver')
 
-const FSM = {
-  IDLE: {
-    START: 'RUNNING'
-  },
-  RUNNING: {
-    PAUSE: 'PAUSED',
-    STOP: 'IDLE'
-  },
-  PAUSED: {
-    RESUME: 'RUNNING',
-    STOP: 'IDLE'
-  }
-}
-
-function createEnum(final, key) {
-  return Object.assign({}, final, { [key]: key })
-}
-
-const GAME_STATUSES = Object.keys(FSM)
-  .reduce(createEnum, {})
-
-function changeState(action) {
-  this.status = FSM[this.status][action]
-}
-
 class Game {
   constructor(data) {
-    this.status = GAME_STATUSES.IDLE
+    this.status = DEFAULT_STATE
     this.timeline = new Timeline(data)
     this.settings = data.settings
 
@@ -55,5 +32,3 @@ class Game {
 }
 
 module.exports = Game
-
-module.exports.GAME_STATUSES = GAME_STATUSES

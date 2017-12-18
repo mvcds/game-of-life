@@ -4,7 +4,7 @@ const PropTypes = require('prop-types')
 
 const Button = require('../../molecules/button')
 
-const { GAME_STATUSES } = require('../../../../domain/models/Game')
+const { GAME_STATUSES } = require('../../../../domain/values/GameStatuses')
 
 require('./control.styl')
 

@@ -3,7 +3,7 @@ const { storiesOf } = require('@storybook/react')
 const { withKnobs, select, number, boolean } = require('@storybook/addon-knobs')
 const { action } = require('@storybook/addon-actions')
 
-const { GAME_STATUSES } = require('../../../../domain/models/Game')
+const { GAME_STATUSES } = require('../../../../domain/values/GameStatuses')
 const TimelineFactory = require('../../../../domain/models/Timeline/timeline.factory')
 
 const Control = require('./index')
