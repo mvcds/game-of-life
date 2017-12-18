@@ -5,7 +5,7 @@ function updateLastGeneration(generation) {
   this.lastGeneration = generation
 }
 
-function changeCurrentGeneration(generation, number, settings) {
+function changeCurrentGeneration(number, settings, generation) {
   this.currentGeneration = generation
 
   return this.goToGeneration(number, settings)
@@ -30,9 +30,9 @@ function moveToNext(number, settings) {
 
   if (gameOverReason) return false
 
-  if (next) return changeCurrentGeneration.call(this, next, number, settings)
+  const move = next ? changeCurrentGeneration : createNewGeneration
 
-  return createNewGeneration.call(this, number, settings)
+  return move.call(this, number, settings, next)
 }
 
 function moveToPrevious(number, settings) {
@@ -40,7 +40,7 @@ function moveToPrevious(number, settings) {
 
   if (!previous) return false
 
-  return changeCurrentGeneration.call(this, previous, number, settings)
+  return changeCurrentGeneration.call(this, number, settings, previous)
 }
 
 class Timeline {
