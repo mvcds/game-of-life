@@ -1,20 +1,18 @@
 const Generation = require('./Generation')
 
-//  TODO: check why 'apply' didn't work
-function updateLastGeneration(timeline, generation) {
-  timeline.currentGeneration = generation //  eslint-disable-line no-param-reassign
-  timeline.lastGeneration = generation //  eslint-disable-line no-param-reassign
+function updateLastGeneration(generation) {
+  this.currentGeneration = generation
+  this.lastGeneration = generation
 }
 
-function changeCurrentGeneration(timeline, generation, number, settings) {
-  //  eslint-disable-next-line no-param-reassign
-  timeline.currentGeneration = generation
+function changeCurrentGeneration(generation, number, settings) {
+  this.currentGeneration = generation
 
-  return timeline.goToGeneration(number, settings)
+  return this.goToGeneration(number, settings)
 }
 
-function createNewGeneration(timeline, number, settings) {
-  const { currentGeneration } = timeline
+function createNewGeneration(number, settings) {
+  const { currentGeneration } = this
 
   currentGeneration.createNext(settings)
 
@@ -22,27 +20,27 @@ function createNewGeneration(timeline, number, settings) {
 
   if (!next) return false
 
-  updateLastGeneration(timeline, next)
+  updateLastGeneration.call(this, next)
 
-  return timeline.goToGeneration(number, settings)
+  return this.goToGeneration(number, settings)
 }
 
-function moveToNext(timeline, number, settings) {
-  const { next, gameOverReason } = timeline.currentGeneration
+function moveToNext(number, settings) {
+  const { next, gameOverReason } = this.currentGeneration
 
   if (gameOverReason) return false
 
-  if (next) return changeCurrentGeneration(timeline, next, number, settings)
+  if (next) return changeCurrentGeneration.call(this, next, number, settings)
 
-  return createNewGeneration(timeline, number, settings)
+  return createNewGeneration.call(this, number, settings)
 }
 
-function moveToPrevious(timeline, number, settings) {
-  const { previous } = timeline.currentGeneration
+function moveToPrevious(number, settings) {
+  const { previous } = this.currentGeneration
 
   if (!previous) return false
 
-  return changeCurrentGeneration(timeline, previous, number, settings)
+  return changeCurrentGeneration.call(this, previous, number, settings)
 }
 
 class Timeline {
@@ -51,7 +49,7 @@ class Timeline {
 
     this.goToGeneration = this.goToGeneration.bind(this)
 
-    updateLastGeneration(this, generation)
+    updateLastGeneration.call(this, generation)
   }
 
   get isAtFirstGeneration() {
@@ -73,7 +71,7 @@ class Timeline {
 
     const move = targetNumber > number ? moveToNext : moveToPrevious
 
-    return move(this, targetNumber, settings)
+    return move.call(this, targetNumber, settings)
   }
 }
 
