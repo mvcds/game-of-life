@@ -1,4 +1,5 @@
 const Generation = require('./Generation')
+const { getGameOverReason } = require('./GameOver')
 
 function updateLastGeneration(generation) {
   this.currentGeneration = generation
@@ -22,7 +23,7 @@ function createNewGeneration(number, settings) {
 
   updateLastGeneration.call(this, next)
 
-  return this.goToGeneration(number, settings)
+  return !this.gameOver
 }
 
 function moveToNext(number, settings) {
@@ -62,6 +63,14 @@ class Timeline {
     return `${this.currentGeneration.number} / ${this.lastGeneration.number}`
   }
 
+  get gameOver() {
+    if (this.reasonToGameOver) return this.reasonToGameOver
+
+    this.reasonToGameOver = getGameOverReason(this)
+
+    return this.reasonToGameOver
+  }
+
   goToGeneration(targetNumber, settings) {
     const { number } = this.currentGeneration
 
@@ -70,6 +79,10 @@ class Timeline {
     const move = targetNumber > number ? moveToNext : moveToPrevious
 
     return move.call(this, targetNumber, settings)
+  }
+
+  repeatAt(generation) {
+    this.repetition = [generation.number, this.lastGeneration.previous.number]
   }
 }
 

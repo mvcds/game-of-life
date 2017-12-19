@@ -20,3 +20,11 @@ Feature: Play Game
     When I "start" the game
     Then the game stops at 0
       And the game is over with "STATIC_BOARD"
+
+  Scenario: Oscilator
+    Given I draw a "Blinker" game
+    When I "start" the game
+    Then the game stops at 3
+      And the game is over with "REPEATED_BOARD"
+      And the game's repetition starts at 0
+      And the game's repetition ends at 1

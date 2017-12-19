@@ -43,7 +43,8 @@ function withCells(injection = {}, isInstance = true) {
 const gameFunctions = {
   AllDead: withCells.bind([]),
   OneCellInMiddle: withCells.bind([12]),
-  Tub: withCells.bind([7, 11, 13, 17])
+  Tub: withCells.bind([7, 11, 13, 17]),
+  Blinker: withCells.bind([11, 12, 13])
 }
 
 const randomFunctions = Object.values(gameFunctions)

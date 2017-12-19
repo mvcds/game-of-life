@@ -40,3 +40,15 @@ Then('the game is over with {string}', (expectedGameOver) => {
 
   expect(gameOver).to.equal(expectedGameOver)
 })
+
+Then('the game\'s repetition starts at {int}', (repetition) => {
+  const [start] = this.game.timeline.repetition
+
+  expect(start).to.equal(repetition)
+})
+
+Then('the game\'s repetition ends at {int}', (repetition) => {
+  const [, end] = this.game.timeline.repetition
+
+  expect(end).to.equal(repetition)
+})

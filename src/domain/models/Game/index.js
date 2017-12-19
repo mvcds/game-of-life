@@ -2,8 +2,6 @@ const { DEFAULT_STATE, changeState } = require('../../values/GameStatuses')
 
 const Timeline = require('../Timeline')
 
-const GameOver = require('./GameOver')
-
 class Game {
   constructor(data) {
     this.status = DEFAULT_STATE
@@ -21,7 +19,7 @@ class Game {
   }
 
   get gameOver() {
-    return GameOver.getReason(this.timeline.lastGeneration)
+    return this.timeline.gameOver
   }
 
   goNext() {

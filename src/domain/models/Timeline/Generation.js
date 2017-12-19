@@ -3,7 +3,12 @@ function getNextState(cell, index, cells) {
 }
 
 function isEqualCell(cell, index) {
-  return cell === this.cells[index]
+  const other = this.cells[index]
+
+  if (cell === other) return true
+
+  return cell.index === other.index
+    && cell.isAlive === other.isAlive
 }
 
 function isDead({ isAlive }) {
