@@ -22,7 +22,11 @@
     "cache": true,
     "all": false,
     "exclude": [
-      "src/**/*.factory.js"
+      "src/**/*.factory.js",
+      "src/**/*.storybook.js",
+      "coverage",
+      "src/app/index.js",
+      "webpack.config.js"
     ],
     "lines": 75,
     "statements": 70,
