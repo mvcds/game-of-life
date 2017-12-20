@@ -5,8 +5,11 @@ const PropTypes = require('prop-types')
 const Button = require('../../molecules/button')
 
 const { GAME_STATUSES } = require('../../../../domain/values/GameStatuses')
+const { MIN_BOARD_SIZE, MAX_BOARD_SIZE } = require('../../../../domain/values/Settings')
 
 require('./control.styl')
+
+const BOARD_SIZE = { min: MIN_BOARD_SIZE, max: MAX_BOARD_SIZE }
 
 const baseClass = bem.bind(null, 'control')
 
@@ -31,7 +34,10 @@ function SizeAdjuster({ onAdd, onRemove, name, size, limits }) {
 }
 
 function IdleControls(props) {
-  const { playHandler, addColumn, removeColum, addRow, removeRow, columns, rows, limits } = props
+  const {
+    playHandler, addColumn, removeColum, addRow, removeRow,
+    columns, rows, limits = BOARD_SIZE
+  } = props
 
   return [
     <PlayButton playHandler={playHandler} key="play" />,

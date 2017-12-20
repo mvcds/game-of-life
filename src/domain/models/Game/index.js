@@ -4,7 +4,7 @@ const Timeline = require('../Timeline')
 
 class Game {
   constructor(data) {
-    this.status = DEFAULT_STATE
+    this.status = data.status || DEFAULT_STATE
     this.timeline = new Timeline(data)
     this.settings = data.settings
 
