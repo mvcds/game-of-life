@@ -13,7 +13,26 @@
     "lint": "eslint src --cache=true --max-warnings 10",
     "integration": "cucumberjs src",
     "integration:watch": "yarn integration && watch -p 'src/**/*.{js, feature}' -c 'yarn integration'",
-    "validate": "yarn lint && yarn integration"
+    "validate": "yarn lint && yarn cover",
+    "cover": "nyc yarn integration"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "per-file": true,
+    "cache": true,
+    "all": false,
+    "exclude": [
+      "src/**/*.factory.js"
+    ],
+    "lines": 75,
+    "statements": 70,
+    "functions": 55,
+    "branches": 55,
+    "reporter": [
+      "lcov",
+      "text",
+      "text-summary"
+    ]
   },
   "dependencies": {
     "bem-classname": "^0.1.1",
@@ -39,6 +58,7 @@
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.5.0",
     "faker": "^4.1.0",
+    "nyc": "^11.3.0",
     "rosie": "^1.6.0",
     "style-loader": "^0.19.0",
     "stylus": "^0.54.5",
