@@ -35,7 +35,7 @@ function SizeAdjuster({ onAdd, onRemove, name, size, limits }) {
 
 function IdleControls(props) {
   const {
-    playHandler, addColumn, removeColum, addRow, removeRow,
+    playHandler, addColumn, removeColumn, addRow, removeRow,
     columns, rows, limits = BOARD_SIZE
   } = props
 
@@ -43,7 +43,7 @@ function IdleControls(props) {
     <PlayButton playHandler={playHandler} key="play" />,
     <SizeAdjuster
       onAdd={addColumn}
-      onRemove={removeColum}
+      onRemove={removeColumn}
       name="Col."
       size={columns}
       limits={limits}
@@ -143,7 +143,7 @@ PlayButton.propTypes = {
 IdleControls.propTypes = {
   playHandler: PropTypes.func.isRequired,
   addColumn: PropTypes.func.isRequired,
-  removeColum: PropTypes.func.isRequired,
+  removeColumn: PropTypes.func.isRequired,
   addRow: PropTypes.func.isRequired,
   removeRow: PropTypes.func.isRequired,
   columns: PropTypes.number.isRequired,

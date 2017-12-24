@@ -18,7 +18,7 @@ const methods = {
   gotoNext: action('Go to Next'),
   gotoLast: action('Go to Last'),
   addColumn: action('Add Column'),
-  removeColum: action('Remove Column'),
+  removeColumn: action('Remove Column'),
   addRow: action('Add Row'),
   removeRow: action('Remove Row')
 }
