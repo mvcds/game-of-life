@@ -23,6 +23,7 @@ function Game(props) {
   return (
     <section className={baseClass()}>
       <Control
+        {...props}
         columns={columns}
         rows={rows}
         isAtFirstGeneration={isAtFirstGeneration}
@@ -31,7 +32,7 @@ function Game(props) {
         status={status}
         timestamp={timestamp}
       />
-      <Board columns={columns} rows={rows} cells={cells} />
+      <Board {...props} columns={columns} rows={rows} cells={cells} />
     </section>
   )
 }

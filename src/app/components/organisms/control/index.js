@@ -148,7 +148,7 @@ IdleControls.propTypes = {
   removeRow: PropTypes.func.isRequired,
   columns: PropTypes.number.isRequired,
   rows: PropTypes.number.isRequired,
-  limits: PropTypes.object.isRequired
+  limits: PropTypes.object
 }
 
 RunningControls.propTypes = {

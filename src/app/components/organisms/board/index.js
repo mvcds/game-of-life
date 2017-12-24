@@ -14,8 +14,8 @@ function BoardCell({ isAlive }, index) {
 
 function stylize(columns, rows) {
   return {
-    'grid-template-columns': `repeat(${columns}, 24px)`,
-    'grid-template-rows': `repeat(${rows}, 24px)`
+    gridTemplateColumns: `repeat(${columns}, 24px)`,
+    gridTemplateRows: `repeat(${rows}, 24px)`
   }
 }
 

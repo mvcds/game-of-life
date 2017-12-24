@@ -21,7 +21,8 @@ const methods = {
   addColumn: action('Add Column'),
   removeColum: action('Remove Column'),
   addRow: action('Add Row'),
-  removeRow: action('Remove Row')
+  removeRow: action('Remove Row'),
+  onToggleCell: action('Toogle Cell')
 }
 
 const min = 5
@@ -36,6 +37,6 @@ storiesOf('Organisms / Game', module)
     const game = GameFactory.Random({ settings, status })
 
     return (
-      <Game {...game} cells={game.cells} gameOver={game.gameOver} />
+      <Game {...game} {...methods} cells={game.cells} gameOver={game.gameOver} />
     )
   })
