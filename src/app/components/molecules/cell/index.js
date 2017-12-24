@@ -8,9 +8,7 @@ const baseClass = bem.bind(null, 'cell')
 
 function Cell({ isAlive, clickHandler }) {
   return (
-    <button className={baseClass({ 'is-alive': isAlive })} onClick={clickHandler}>
-      {isAlive ? 'A' : 'D'}
-    </button>
+    <button className={baseClass({ 'is-alive': isAlive })} onClick={clickHandler} />
   )
 }
 
