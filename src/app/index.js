@@ -1,5 +1,5 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+const React = require('react')
+const ReactDOM = require('react-dom')
 
 ReactDOM.render(
   <h1>It is my life!</h1>,
