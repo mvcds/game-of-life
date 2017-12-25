@@ -36,7 +36,27 @@ storiesOf('Organisms / Game', module)
 
     const game = GameFactory.Random({ settings, status })
 
+    const { columns, rows } = settings
+    const {
+      cells,
+      gameOver,
+      timeline: { isAtFirstGeneration, isAtLastGeneration, timestamp }
+    } = game
+
+    const canGoNext = !isAtLastGeneration && !gameOver
+
     return (
-      <Game {...game} {...methods} cells={game.cells} gameOver={game.gameOver} />
+      <Game
+        {...methods}
+        columns={columns}
+        rows={rows}
+        cells={cells}
+        status={status}
+        gameOver={gameOver}
+        isAtFirstGeneration={isAtFirstGeneration}
+        isAtLastGeneration={isAtLastGeneration}
+        timestamp={timestamp}
+        canGoNext={canGoNext}
+      />
     )
   })

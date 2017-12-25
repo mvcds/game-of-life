@@ -1,48 +1,22 @@
 const React = require('react')
 const bem = require('bem-classname')
-const PropTypes = require('prop-types')
 
-const Board = require('../board')
-const Control = require('../control')
+const PropExtractor = require('../../atoms/propExtractor')
+
+const Board = PropExtractor(require('../board'))
+const Control = PropExtractor(require('../control'))
 
 require('./game.styl')
 
 const baseClass = bem.bind(null, 'game')
 
 function Game(props) {
-  const {
-    settings: { columns, rows },
-    cells,
-    status,
-    gameOver,
-    timeline: { isAtFirstGeneration, isAtLastGeneration, timestamp }
-  } = props
-
-  const canGoNext = !isAtLastGeneration && !gameOver
-
   return (
     <section className={baseClass()}>
-      <Control
-        {...props}
-        columns={columns}
-        rows={rows}
-        isAtFirstGeneration={isAtFirstGeneration}
-        isAtLastGeneration={isAtLastGeneration}
-        canGoNext={canGoNext}
-        status={status}
-        timestamp={timestamp}
-      />
-      <Board {...props} columns={columns} rows={rows} cells={cells} />
+      <Control source={props} />
+      <Board source={props} />
     </section>
   )
-}
-
-Game.propTypes = {
-  settings: PropTypes.object.isRequired,
-  cells: PropTypes.arrayOf(PropTypes.object).isRequired,
-  status: PropTypes.string.isRequired,
-  gameOver: PropTypes.string.isRequired,
-  timeline: PropTypes.object.isRequired
 }
 
 module.exports = Game

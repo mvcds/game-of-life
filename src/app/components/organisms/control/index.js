@@ -2,6 +2,7 @@ const React = require('react')
 const bem = require('bem-classname')
 const PropTypes = require('prop-types')
 
+const PropExtractor = require('../../atoms/propExtractor')
 const Button = require('../../molecules/button')
 
 const { GAME_STATUSES } = require('../../../../domain/values/GameStatuses')
@@ -78,14 +79,6 @@ function PausedControls({ resumeHandler, stopHandler }) {
   )
 }
 
-function getControlByState({ status }) {
-  if (status === GAME_STATUSES.IDLE) return IdleControls
-
-  if (status === GAME_STATUSES.RUNNING) return RunningControls
-
-  return PausedControls
-}
-
 function TimelineControls(props) {
   if (props.status !== GAME_STATUSES.PAUSED) return null
 
@@ -116,14 +109,28 @@ function TimelineDisplay({ status, timestamp }) {
   )
 }
 
+const ExtractedTimelineControls = PropExtractor(TimelineControls)
+const ExtractedTimelineDisplay = PropExtractor(TimelineDisplay)
+const ExtractedIdleControls = PropExtractor(IdleControls)
+const ExtractedRunningControls = PropExtractor(RunningControls)
+const ExtractedPausedControls = PropExtractor(PausedControls)
+
+function getControlByState({ status }) {
+  if (status === GAME_STATUSES.IDLE) return ExtractedIdleControls
+
+  if (status === GAME_STATUSES.RUNNING) return ExtractedRunningControls
+
+  return ExtractedPausedControls
+}
+
 function Control(props) {
   const GameStateControls = getControlByState(props)
 
   return (
     <section className={baseClass()}>
-      <GameStateControls {...props} />
-      <TimelineControls {...props} />
-      <TimelineDisplay {...props} />
+      <GameStateControls source={props} />
+      <ExtractedTimelineControls source={props} />
+      <ExtractedTimelineDisplay source={props} />
     </section>
   )
 }
@@ -179,10 +186,11 @@ TimelineDisplay.propTypes = {
 
 //  eslint-disable-next-line function-paren-newline
 Control.propTypes = Object.assign({},
-  TimelineControls.propTypes,
   IdleControls.propTypes,
   RunningControls.propTypes,
-  PausedControls.propTypes
+  PausedControls.propTypes,
+  TimelineControls.propTypes,
+  TimelineDisplay.propTypes
 )
 
 module.exports = Control
