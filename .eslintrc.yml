@@ -2,14 +2,7 @@ extends: airbnb
 rules:
   semi: ["error", "never"]
   comma-dangle: ["error", "never"]
-  import/no-extraneous-dependencies: ["error", {
-    "devDependencies": [
-      "**/*.test.js",
-      "**/*.factory.js",
-      "**/*.storybook.js",
-      "**/*.steps.js"
-    ]
-  }]
+  import/no-extraneous-dependencies: ["off"]
   react/jsx-filename-extension: ["error", {
     "extensions": [
       ".js",
@@ -23,3 +16,4 @@ rules:
       "array"
     ]
   }]
+  import/no-unresolved: ["off"]

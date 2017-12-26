@@ -1,10 +1,10 @@
 const React = require('react')
 const bem = require('bem-classname')
 
-const PropExtractor = require('../../atoms/propExtractor')
+const PropExtractor = require('Atoms/propExtractor')
 
-const Board = PropExtractor(require('../board'))
-const Control = PropExtractor(require('../control'))
+const Board = PropExtractor(require('Organisms/board'))
+const Control = PropExtractor(require('Organisms/control'))
 
 require('./game.styl')
 

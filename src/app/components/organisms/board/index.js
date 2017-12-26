@@ -2,7 +2,7 @@ const React = require('react')
 const bem = require('bem-classname')
 const PropTypes = require('prop-types')
 
-const Cell = require('../../molecules/cell')
+const Cell = require('Molecules/cell')
 
 require('./board.styl')
 

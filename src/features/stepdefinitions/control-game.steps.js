@@ -1,7 +1,7 @@
 const { Given, When, Then } = require('cucumber')
 const { expect } = require('chai')
 
-const GameFactory = require('../../domain/models/Game/game.factory')
+const GameFactory = require('Models/Game/game.factory')
 
 function isBelow(game, generation) {
   if (!game.goNext()) return false

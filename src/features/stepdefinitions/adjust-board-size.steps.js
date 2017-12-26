@@ -1,7 +1,7 @@
 const { Given, When, Then } = require('cucumber')
 const { expect } = require('chai')
 
-const SettingsFactory = require('../../domain/values/Settings/settings.factory')
+const SettingsFactory = require('Values/Settings/settings.factory')
 
 Given('a {int} x {int} board', (columns, rows) => {
   this.settings = SettingsFactory.DefaultSettings({ columns, rows })

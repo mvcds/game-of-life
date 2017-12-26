@@ -1,9 +1,9 @@
 const { Factory } = require('rosie')
 const { random } = require('faker')
 
-const SettingsFactory = require('../../values/Settings/settings.factory')
-const { DEFAULT_STATE } = require('../../values/GameStatuses')
-const CellFactory = require('../Cell/cell.factory')
+const SettingsFactory = require('Values/Settings/settings.factory')
+const { DEFAULT_STATE } = require('Values/GameStatuses')
+const CellFactory = require('Models/Cell/cell.factory')
 
 const Game = require('./index')
 

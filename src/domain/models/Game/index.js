@@ -1,6 +1,6 @@
-const { DEFAULT_STATE, changeState } = require('../../values/GameStatuses')
+const { DEFAULT_STATE, changeState } = require('Values/GameStatuses')
 
-const Timeline = require('../Timeline')
+const Timeline = require('Models/Timeline')
 
 class Game {
   constructor(data) {

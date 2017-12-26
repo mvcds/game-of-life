@@ -3,8 +3,8 @@ const { storiesOf } = require('@storybook/react')
 const { withKnobs, number } = require('@storybook/addon-knobs')
 const { action } = require('@storybook/addon-actions')
 
-const GameFactory = require('../../../../domain/models/Game/game.factory')
-const SettingsFactory = require('../../../../domain/values/Settings/settings.factory')
+const GameFactory = require('Models/Game/game.factory')
+const SettingsFactory = require('Values/Settings/settings.factory')
 
 const Board = require('./index')
 

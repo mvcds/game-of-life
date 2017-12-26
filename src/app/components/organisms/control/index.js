@@ -2,11 +2,11 @@ const React = require('react')
 const bem = require('bem-classname')
 const PropTypes = require('prop-types')
 
-const PropExtractor = require('../../atoms/propExtractor')
-const Button = require('../../molecules/button')
+const PropExtractor = require('Atoms/propExtractor')
+const Button = require('Molecules/button')
 
-const { GAME_STATUSES } = require('../../../../domain/values/GameStatuses')
-const { MIN_BOARD_SIZE, MAX_BOARD_SIZE } = require('../../../../domain/values/Settings')
+const { GAME_STATUSES } = require('Values/GameStatuses')
+const { MIN_BOARD_SIZE, MAX_BOARD_SIZE } = require('Values/Settings')
 
 require('./control.styl')
 

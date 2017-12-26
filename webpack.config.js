@@ -26,5 +26,14 @@ module.exports = {
         ]
       }
     ]
+  },
+  resolve: {
+    alias: {
+      Models: path.resolve(__dirname, 'src/domain/models'),
+      Values: path.resolve(__dirname, 'src/domain/values'),
+      Atoms: path.resolve(__dirname, 'src/app/components/atoms'),
+      Molecules: path.resolve(__dirname, 'src/app/components/molecules'),
+      Organisms: path.resolve(__dirname, 'src/app/components/organisms')
+    }
   }
 }
