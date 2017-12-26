@@ -1,6 +1,10 @@
 const React = require('react')
 const PropTypes = require('prop-types')
 
+const SHARED_PROPS = {
+  source: PropTypes.object.isRequired
+}
+
 function getDisplayName(Component) {
   return Component.displayName || Component.name || 'Component'
 }
@@ -19,30 +23,17 @@ function extractProps(final, [key]) {
 }
 
 function PropExtractor(Component) {
-  const name = `PropExtractorOf(${getDisplayName(Component)})`
+  function PropsExtractedFrom({ source }) {
+    const { props } = Object.entries(Component.propTypes)
+      .reduce(extractProps, { source, props: {} })
 
-  class PropExtractorOf extends React.Component {
-    constructor(props) {
-      super(props)
-
-      this.name = name
-    }
-
-    render() {
-      const { source } = this.props
-
-      const { props } = Object.entries(Component.propTypes)
-        .reduce(extractProps, { source, props: {} })
-
-      return <Component {...props} />
-    }
+    return <Component {...props} />
   }
 
-  PropExtractorOf.propTypes = {
-    source: PropTypes.object.isRequired
-  }
+  PropsExtractedFrom.displayName = `PropsExtractedFrom(${getDisplayName(Component)})`
+  PropsExtractedFrom.propTypes = SHARED_PROPS
 
-  return PropExtractorOf
+  return PropsExtractedFrom
 }
 
 module.exports = PropExtractor
