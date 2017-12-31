@@ -1,7 +1,7 @@
 const MIN_BOARD_SIZE = 5
 const MAX_BOARD_SIZE = MIN_BOARD_SIZE ** 2
 
-function limitSize(value = 0) {
+function limitSize(value = MIN_BOARD_SIZE) {
   return Math.min(Math.max(value, MIN_BOARD_SIZE), MAX_BOARD_SIZE)
 }
 
@@ -10,10 +10,6 @@ function adjustSize(key, increment) {
 }
 
 class Settings {
-  static get MIN_BOARD_SIZE() { return MIN_BOARD_SIZE }
-
-  static get MAX_BOARD_SIZE() { return MAX_BOARD_SIZE }
-
   constructor(data) {
     const { columns, rows } = data
 

@@ -2,11 +2,9 @@ const { Factory } = require('rosie')
 
 const Settings = require('./index')
 
-const { MIN_SIZE } = Settings
-
 const settings = new Factory()
-  .attr('columns', MIN_SIZE)
-  .attr('rows', MIN_SIZE)
+  .attr('columns', 0)
+  .attr('rows', 0)
 
 function build(data, isInstance) {
   const fixture = settings.build(data)

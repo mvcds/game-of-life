@@ -1,12 +1,14 @@
 const { DEFAULT_STATE, changeState } = require('Values/GameStatuses')
 
-const Timeline = require('Models/Timeline')
+const defaultData = {
+  status: DEFAULT_STATE,
+  timeline: null,
+  settings: null
+}
 
 class Game {
   constructor(data) {
-    this.status = data.status || DEFAULT_STATE
-    this.timeline = new Timeline(data)
-    this.settings = data.settings
+    Object.assign(this, defaultData, data)
 
     this.start = changeState.bind(this, 'START')
     this.pause = changeState.bind(this, 'PAUSE')

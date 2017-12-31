@@ -4,7 +4,6 @@ const Timeline = require('./index')
 const Generation = require('./Generation')
 
 const timeline = new Factory()
-  .attr('cells', [])
 
 const generation = new Factory()
   .attr('cells', [])
@@ -40,5 +39,6 @@ function WithGenerations(number, injection = {}, isInstance = true) {
 }
 
 module.exports = {
-  WithGenerations
+  WithGenerations,
+  NoCells: WithGenerations.bind(null, 0)
 }

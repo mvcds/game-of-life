@@ -2,14 +2,16 @@ const { Factory } = require('rosie')
 const { random } = require('faker')
 
 const SettingsFactory = require('Values/Settings/settings.factory')
+const TimelineFactory = require('Models/Timeline/timeline.factory')
 const { DEFAULT_STATE } = require('Values/GameStatuses')
 const CellFactory = require('Models/Cell/cell.factory')
 
 const Game = require('./index')
 
 const game = new Factory()
-  .attr('settings', SettingsFactory.DefaultSettings)
   .attr('status', DEFAULT_STATE)
+  .attr('timeline', TimelineFactory.NoCells)
+  .attr('settings', SettingsFactory.DefaultSettings)
 
 function createCell(cell, index) {
   const isAlive = this.aliveCells.includes(index)
@@ -22,9 +24,7 @@ function createCell(cell, index) {
 function createCells({ settings = SettingsFactory.DefaultSettings() }, ...aliveCells) {
   const cells = Array(settings.boardSize).fill(0)
 
-  return {
-    cells: cells.map(createCell, { aliveCells })
-  }
+  return cells.map(createCell, { aliveCells })
 }
 
 function build(data, isInstance) {
@@ -33,19 +33,21 @@ function build(data, isInstance) {
   return isInstance ? new Game(fixture) : fixture
 }
 
-function withCells(injection = {}, isInstance = true) {
+function withGenerationZero(injection = {}, isInstance = true) {
   const cells = createCells(injection, ...this)
 
-  const data = Object.assign({}, injection, cells)
+  const timeline = TimelineFactory.WithGenerations(0, { cells })
+
+  const data = Object.assign({}, injection, { timeline })
 
   return build(data, isInstance)
 }
 
 const gameFunctions = {
-  AllDead: withCells.bind([]),
-  OneCellInMiddle: withCells.bind([12]),
-  Tub: withCells.bind([7, 11, 13, 17]),
-  Blinker: withCells.bind([11, 12, 13])
+  AllDead: withGenerationZero.bind([]),
+  OneCellInMiddle: withGenerationZero.bind([12]),
+  Tub: withGenerationZero.bind([7, 11, 13, 17]),
+  Blinker: withGenerationZero.bind([11, 12, 13])
 }
 
 const randomFunctions = Object.values(gameFunctions)
