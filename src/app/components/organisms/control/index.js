@@ -4,6 +4,7 @@ const PropTypes = require('prop-types')
 
 const PropExtractor = require('Atoms/propExtractor')
 const Button = require('Molecules/button')
+const Checkbox = require('Molecules/checkbox')
 
 const { GAME_STATUSES } = require('Values/GameStatuses')
 const { MIN_BOARD_SIZE, MAX_BOARD_SIZE } = require('Values/Settings')
@@ -30,6 +31,15 @@ function SizeAdjuster({ onAdd, onRemove, name, size, limits }) {
     <div className={baseClass('group')}>
       <Button onClick={onRemove} disabled={isRemoveDisabled}>{ name }-</Button>
       <Button onClick={onAdd} disabled={isAddDisabled}>{ name }+</Button>
+    </div>
+  )
+}
+
+function Autoplay({ isAutoPlay, onToggleAutoplay }) {
+  return (
+    <div className={baseClass('group')}>
+      <Checkbox isChecked={isAutoPlay} id="autoplay" onChange={onToggleAutoplay} />
+      <label className={baseClass('autoplay')} htmlFor="autoplay">Autoplay</label>
     </div>
   )
 }
@@ -114,6 +124,7 @@ const ExtractedTimelineDisplay = PropExtractor(TimelineDisplay)
 const ExtractedIdleControls = PropExtractor(IdleControls)
 const ExtractedRunningControls = PropExtractor(RunningControls)
 const ExtractedPausedControls = PropExtractor(PausedControls)
+const ExtractedAutoplay = PropExtractor(Autoplay)
 
 function getControlByState({ status }) {
   if (status === GAME_STATUSES.IDLE) return ExtractedIdleControls
@@ -131,8 +142,14 @@ function Control(props) {
       <GameStateControls source={props} />
       <ExtractedTimelineControls source={props} />
       <ExtractedTimelineDisplay source={props} />
+      <ExtractedAutoplay source={props} />
     </section>
   )
+}
+
+Autoplay.propTypes = {
+  onToggleAutoplay: PropTypes.func.isRequired,
+  isAutoPlay: PropTypes.bool.isRequired
 }
 
 SizeAdjuster.propTypes = {
@@ -190,7 +207,8 @@ Control.propTypes = Object.assign({},
   RunningControls.propTypes,
   PausedControls.propTypes,
   TimelineControls.propTypes,
-  TimelineDisplay.propTypes
+  TimelineDisplay.propTypes,
+  Autoplay.propTypes
 )
 
 module.exports = Control

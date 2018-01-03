@@ -20,7 +20,8 @@ const methods = {
   addColumn: action('Add Column'),
   removeColumn: action('Remove Column'),
   addRow: action('Add Row'),
-  removeRow: action('Remove Row')
+  removeRow: action('Remove Row'),
+  onToggleAutoplay: action('Toogle Autoplay')
 }
 
 const timeline = TimelineFactory.WithGenerations(3)
@@ -50,6 +51,7 @@ storiesOf('Organisms / Control', module)
     const generation = isPaused ? number('Generation', 0, generationRange) : 0
     const columns = isIdle ? number('Columns', 0, sizeRange) : 0
     const rows = isIdle ? number('Rows', 0, sizeRange) : 0
+    const isAutoPlay = boolean('Is Autoplay?', true)
 
     timeline.goToGeneration(generation)
 
@@ -68,6 +70,7 @@ storiesOf('Organisms / Control', module)
         columns={columns}
         rows={rows}
         limits={sizeRange}
+        isAutoPlay={isAutoPlay}
       />
     )
   })

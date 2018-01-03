@@ -22,7 +22,8 @@ const methods = {
   removeColumn: action('Remove Column'),
   addRow: action('Add Row'),
   removeRow: action('Remove Row'),
-  onToggleCell: action('Toogle Cell')
+  onToggleCell: action('Toogle Cell'),
+  onToggleAutoplay: action('Toogle Autoplay')
 }
 
 const min = 5

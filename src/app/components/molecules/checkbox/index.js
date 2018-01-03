@@ -6,9 +6,10 @@ require('./checkbox.styl')
 
 const baseClass = bem.bind(null, 'checkbox')
 
-function Checkbox({ isChecked, onChange }) {
+function Checkbox({ isChecked, onChange, id }) {
   return (
     <input
+      id={id}
       className={baseClass()}
       type="checkbox"
       checked={isChecked}
@@ -19,7 +20,12 @@ function Checkbox({ isChecked, onChange }) {
 
 Checkbox.propTypes = {
   onChange: PropTypes.func.isRequired,
-  isChecked: PropTypes.bool.isRequired
+  isChecked: PropTypes.bool.isRequired,
+  id: PropTypes.string
+}
+
+Checkbox.defaultProps = {
+  id: undefined
 }
 
 module.exports = Checkbox
