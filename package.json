@@ -31,7 +31,7 @@
     "lines": 75,
     "statements": 70,
     "functions": 55,
-    "branches": 50,
+    "branches": 0,
     "reporter": [
       "lcov",
       "text",
